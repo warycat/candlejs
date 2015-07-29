@@ -12,7 +12,7 @@ var loadJS = function(file, callback) {
   document.body.appendChild(jsElm);
 };
 
-loadJS('/scripts/candle.js', function(){
+loadJS('scripts/candle.js', function(){
   var candle = new Candle();
   candle.load('wolf3d');
 });

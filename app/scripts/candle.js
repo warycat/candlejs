@@ -9,7 +9,7 @@ var Candle = function (){
   this._entities = [];
   this._images = [];
   this._sounds = [];
-  this._scriptsPath = '/scripts/';
+  this._scriptsPath = 'scripts/';
   this._scripts = ['input.js', 'loop.js', 'entity.js', 'camera.js'];
 };
 
