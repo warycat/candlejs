@@ -1,0 +1,1 @@
+var Camera=function(o,t){this._canvas=o,this._holder=t,this.callback=function(){}};Camera.prototype.render=function(){var o=this._holder.position,t=this._holder.theta;console.log(o.x,o.y,t)};

@@ -1,0 +1,1 @@
+var Loop=function(){this.frame=this.frame.bind(this),this.lastTime=0};Loop.prototype.start=function(t){this.callback=t,requestAnimationFrame(this.frame)},Loop.prototype.frame=function(t){var i=t-this.lastTime;this.lastTime=t,2e3>i&&this.callback(i),requestAnimationFrame(this.frame)};
