@@ -1,1 +1,1 @@
-var $$="123123";console.log($$);
+var loadJS=function(a,n){var d=document.createElement("script");d.type="application/javascript",d.onload=n,d.src=a,document.body.appendChild(d)};loadJS("/scripts/candle.js",function(){var a=new Candle;a.load("wolf3d")});

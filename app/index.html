@@ -31,7 +31,7 @@
       <div class="header">
         <ul class="nav nav-pills pull-right">
           <li class="active"><a href="index.html">Home</a></li>
-          <li><a href="console.html">Console</a></li>
+          <li><a href="demo.html">Demo</a></li>
           <li><a href="editor.html">Editor</a></li>
         </ul>
         <h3 class="text-muted">candlejs</h3>
@@ -40,17 +40,13 @@
       <div class="jumbotron">
         <h1>CANDLEJS!</h1>
         <p class="lead">A pseudo 3D raycasting game engine!</p>
-        <p><a class="btn btn-lg btn-success" href="#">Demo</a> <a class="btn btn-lg btn-success" href="#">Editor</a></p>
+        <p><a class="btn btn-lg btn-success" href="demo.html">Demo</a> <a class="btn btn-lg btn-success" href="editor.html">Editor</a></p>
       </div>
 
-      <div class="row marketing">
-        <div class="col-lg-6">
+      <div class="row marketing" >
+        <div class="col-lg-8">
           <h4>Running & Programming Environment</h4>
           <p>candle.js is a Game Engine that run in modern browser.candle.js is written entirely with JavaScirpt. Download Modern Browsers <a href="https://www.google.com/chrome/browser/desktop/">Chrome</a> <a href="https://support.apple.com/downloads/safari">Safari</a> <a href="https://www.mozilla.org/en-US/firefox/new/">Firefox</a></p>
-        </div>
-      </div>
-      <div class="row marketing" >
-        <div class="col-lg-6">
 
           <h4>Build candle.js</h4>
           <p>candle.js is built with <a href="https://nodejs.org/">node.js</a>, <a href="https://www.npmjs.com/">npm</a>, <a href="http://yeoman.io/">yeoman</a>, <a href="http://gulpjs.com/">gulp</a>, <a href="http://bower.io/">bower</a>.</p>
@@ -98,15 +94,15 @@ $ npm install -g generator-gulp-webapp
 
           <h4>Create candlejs project</h4>
           <pre>
-$mkdir candlejs
-$cd candlejs
-$yo gulp-webapp
+$ mkdir candlejs
+$ cd candlejs
+$ yo gulp-webapp
           </pre>
           <p>Now everything is generated for us and we can now launch gulp web server.</p>
 
           <h4>Gulp Server</h4>
           <pre>
-$gulp serve
+$ gulp serve
  -------------------------------------
        Local: http://localhost:9000
     External: http://192.168.1.65:9000
@@ -115,16 +111,25 @@ $gulp serve
           <p>you can now access candle.js project with this url.</p>
 
           <h4>Git Version Control</h4>
-          <p>git is a version control system used by candle.js project. Install <a href="https://git-scm.com/downloads">git</a> here.</p>
           <pre>
-$git init
+$ git init
+$ git commit -m 'init'
+$ git remote add origin git@github.com:warycat/candlejs.git
+$ git push -u origin master
           </pre>
+          <p>git is a version control system used by candle.js project. Install <a href="https://git-scm.com/downloads">git</a> here. now the project source code is on github.</p>
+
+          <h4>Deploy project on gh-pages</h4>
+          <pre>
+$ gulp
+$ git add dist
+$ git commit -m "Initial dist subtree commit"
+$ git subtree push --prefix dist origin gh-pages
+          </pre>
+          <p>1st remove the dist directory from the project’s .gitignore file (it’s ignored by default by Yeoman). 2nd build project with gulp. gulp will compile your project into dist folder. 3rd commit your dist folder. 4th push dist subtree of your project to gh-pages. Now the project can be access on internet by the url <a href="http://warycat.com/candlejs">http://warycat.com/candlejs</a></p>
         </div>
       </div>
 
-      <div class="footer">
-        <p>♥ from the Yeoman team</p>
-      </div>
     </div>
     
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
