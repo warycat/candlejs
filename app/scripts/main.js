@@ -14,5 +14,5 @@ var loadJS = function(file, callback) {
 
 loadJS('scripts/candle.js', function(){
   var candle = new Candle();
-  candle.load('wolf3d');
+  candle.load();
 });

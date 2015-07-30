@@ -1,0 +1,1 @@
+var Plane=function(t){this._skyImage=t["sky1.jpg"]};Plane.prototype={get skyImage(){return this._skyImage}};

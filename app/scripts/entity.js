@@ -2,7 +2,7 @@ var Entity = function(states){
   this._position = {x: 0, y: 0};
   this._velocity = {x: 0, y: 0};
   this._angular = {theta: 0, omega: 0};
-  this._states = states;
+  this._states = states || {};
 };
 
 Entity.prototype = {
@@ -37,7 +37,7 @@ Entity.prototype.setSpeed = function(speed){
 };
 
 Entity.prototype.setTheta = function(theta){
-  this._angular.theta = theta;
+  this._angular.theta = theta % ( 2 * Math.PI );
 };
 
 Entity.prototype.setOmega = function(omega){

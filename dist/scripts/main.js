@@ -1,1 +1,1 @@
-var loadJS=function(a,n){var d=document.createElement("script");d.type="application/javascript",d.onload=n,d.src=a,document.body.appendChild(d)};loadJS("scripts/candle.js",function(){var a=new Candle;a.load("wolf3d")});
+var loadJS=function(a,n){var c=document.createElement("script");c.type="application/javascript",c.onload=n,c.src=a,document.body.appendChild(c)};loadJS("scripts/candle.js",function(){var a=new Candle;a.load()});
