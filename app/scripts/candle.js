@@ -1,4 +1,4 @@
-/*global $ loadJS Input Loop Entity Camera Plane*/
+/*global $ loadJS Input Loop Entity Camera Plane Sky*/
 
 
 var Candle = function (){
@@ -10,7 +10,7 @@ var Candle = function (){
   this._imageFiles = ['sky1.jpg'];
   this._imageFoler = 'images/';
   this._scriptFolder = 'scripts/';
-  this._scriptFiles = ['input.js', 'loop.js', 'entity.js', 'plane.js', 'camera.js'];
+  this._scriptFiles = ['input.js', 'loop.js', 'entity.js', 'plane.js', 'sky.js', 'camera.js'];
 };
 
 Candle.prototype = {
@@ -40,6 +40,9 @@ Candle.prototype = {
 , get images(){
     return this._images;
   }
+, get ctx(){
+    return this._ctx;
+  }
 };
 
 Candle.prototype.setCanvas = function(opt){
@@ -49,6 +52,7 @@ Candle.prototype.setCanvas = function(opt){
   this._canvas.style.display = 'block';
   this._canvas.style.margin = 'auto';
   this._canvas.style.background = '#f0f0f0';
+  this._ctx = this._canvas.getContext('2d');
 };
 
 Candle.prototype.about = function(){
@@ -82,7 +86,6 @@ Candle.prototype.loadImages = function(imageFolder, imageFiles, callback) {
   };
   for (var i = 0; i < imageFiles.length; i++) {
     var img = new Image();
-    console.log(img);
     var file = imageFiles[i];
     this._images[file] = img;
     img.onload = onload;
@@ -112,11 +115,13 @@ Candle.prototype.wolf3d = function(){
     this.setSpeed(speed);
   };
   var canvas = this.canvas;
-  var plane = new Plane(this.images);
+  var sky = new Sky(canvas, this.images['sky1.jpg']);
+  var plane = new Plane(32);
   var camera = new Camera(canvas, player, plane);
   loop.start(function(ms){
     player.control();
     player.motion(ms);
+    sky.render(ms, player.theta, canvas.height / 2);
     camera.render(ms);
   });
 };
