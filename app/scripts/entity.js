@@ -3,6 +3,7 @@ var Entity = function(states){
   this._velocity = {x: 0, y: 0};
   this._angular = {theta: 0, omega: 0};
   this._states = states || {};
+  this._bindings = {};
 };
 
 Entity.prototype = {
@@ -17,6 +18,9 @@ Entity.prototype = {
   }
 , get omega() {
     return this._angular.omega;
+  }
+, get bindings(){
+    return this._bindings;
   }
 , get direction(){
     var x = Math.cos(this._angular.theta);
@@ -57,3 +61,4 @@ Entity.prototype.move = function(ms){
 Entity.prototype.rotate = function(ms){
   this._angular.theta = this._angular.theta + this._angular.omega * ms;
 };
+

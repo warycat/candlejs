@@ -40,15 +40,15 @@ Plane.prototype.randomize = function() {
 };
 
 Plane.prototype.print = function(){
-  function pad(num, size) {
-    var s = '      ' + num;
-    return s.substr(s.length - size);
-  }
+  // function pad(num, size) {
+  //   var s = '      ' + num;
+  //   return s.substr(s.length - size);
+  // }
 
   var line = '';
   for (var i = 0; i < this.size; i++){
     for (var j = 0; j < this.size; j++){
-      line = line + pad(this.getGrid(i, j), 4);
+      line = line + (this.getGrid(i, j) ? '#' : ' ');
     }
     line = line + '\n';
   }

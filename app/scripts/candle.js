@@ -1,4 +1,4 @@
-/*global $ loadJS Input Loop Entity Camera Plane Sky*/
+/*global $ loadJS Input Loop Player Camera Plane Sky*/
 
 
 var Candle = function (){
@@ -10,7 +10,7 @@ var Candle = function (){
   this._imageFiles = ['sky1.jpg'];
   this._imageFoler = 'images/';
   this._scriptFolder = 'scripts/';
-  this._scriptFiles = ['input.js', 'loop.js', 'entity.js', 'plane.js', 'sky.js', 'camera.js'];
+  this._scriptFiles = ['input.js', 'loop.js', 'entity.js', 'player.js', 'plane.js', 'sky.js', 'camera.js'];
 };
 
 Candle.prototype = {
@@ -106,21 +106,30 @@ Candle.prototype.load = function(){
 Candle.prototype.wolf3d = function(){
   var input = new Input();
   var loop = new Loop();
-  var player = new Entity();
+  var player = new Player('larry');
+
   player.control = function(){
     var states = input.states;
-    var speed = (states.forward - states.backward) * 0.1;
+    var speed = (states.up - states.down) * 0.1;
     var omega = (states.right - states.left) * 0.002;
     this.setOmega(omega);
     this.setSpeed(speed);
   };
+
   var canvas = this.canvas;
   var sky = new Sky(canvas, this.images['sky1.jpg']);
   var plane = new Plane(32);
-  var camera = new Camera(canvas, player, plane);
+  var camera = new Camera(canvas, 2, 7, 0.8);
+
+  player.bindActionKey('space', 1000, function(){
+    console.log('cast');
+    camera.castRays(player, plane);
+  });
+
   loop.start(function(ms){
     player.control();
     player.motion(ms);
+    player.onActionKey('space', input.states.space, ms);
     sky.render(ms, player.theta, canvas.height / 2);
     camera.render(ms);
   });
