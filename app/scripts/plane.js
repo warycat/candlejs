@@ -1,18 +1,67 @@
-var Plane = function(size){
+var Plane = function(canvas, ceiling, floor, size, image, grids){
+  this._canvas = canvas;
+  this._ctx = canvas.getContext('2d');
+  this._width = canvas.width;
+  this._height = canvas.height;
+  this._height2 = this._height / 2;
   this._size = size;
   this._size2 = size * size;
+  this._image = image;
   this._grids = new Uint8Array(size * size);
-  this.randomize();
+  this._ceiling = ceiling;
+  this._floor = floor;
+  // this.randomize();
+  for(var i = 0; i < size; i++){
+    for(var j = 0; j < size; j++){
+      if(grids[i][j] > 0){
+        // console.log(grids[i][j]);
+      }else{
+        this.setGrid(i, j, -grids[i][j]);
+      }
+      // this._grids[i][j] = grids[][];
+    }
+  }
   this.print();
 };
 
 Plane.prototype = {
-  get size(){
+  get ctx(){
+    return this._ctx;
+  }
+, get canvas(){
+    return this._canvas;
+  }
+, get width(){
+    return this._width;
+  }
+, get height(){
+    return this._height;
+  }
+, get height2(){
+    return this._height2;
+  }
+, get size(){
     return this._size;
   }
 , get size2(){
     return this._size2;
   }
+, get image(){
+    return this._image;
+  }
+, get ceiling(){
+    return this._ceiling;
+  }
+, get floor(){
+    return this._floor;
+  }
+};
+
+Plane.prototype.render = function(){
+  this.ctx.fillStyle = this.ceiling;
+  this.ctx.fillRect(0, 0, this.width, this.height2);
+  this.ctx.fillStyle = this.floor;
+  this.ctx.fillRect(0, this.height2, this.width, this.height2);
 };
 
 Plane.prototype.getGrid = function(i, j){
@@ -29,12 +78,18 @@ Plane.prototype.setGrid = function(i, j, val){
 
 Plane.prototype.index = function(i, j){
   var index = i * this.size + j;
+  if(i < 0 || i >= this.size){
+    return -1;
+  }
+  if(j < 0 || j >= this.size){
+    return -1;
+  }
   return (index > 0 && index < this.size2) ? index : -1;
 };
 
 Plane.prototype.randomize = function() {
   for (var i = 0; i < this.size2; i++) {
-    var val = Math.random() < 0.3 ? 111 : 0;
+    var val = Math.random() < 0.3 ? 1 : 0;
     this._grids[i] = val;
   }
 };

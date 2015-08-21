@@ -1,4 +1,4 @@
-var Camera = function(canvas, ppc, range, focus){
+var Camera = function(canvas, ppc, range, focus, plane){
   this._canvas = canvas;
   this._ctx = canvas.getContext('2d');
   this._width = canvas.width;
@@ -7,6 +7,7 @@ var Camera = function(canvas, ppc, range, focus){
   this._resolution = Math.floor(this._width / this._ppc);
   this._range = range;
   this._focus = focus;
+  this._plane = plane;
   this._columns = [];
   this._rays = [];
 };
@@ -36,6 +37,9 @@ Camera.prototype = {
 , get focus(){
     return this._focus;
   }
+, get plane(){
+    return this._plane;
+  }
 , get columns(){
     return this._columns;
   }
@@ -51,24 +55,61 @@ Camera.prototype.render = function(){
   // console.log(position.x, position.y, theta);
   // this.drawSky(theta, this.plane.skyImage);
   // console.log(this.theta);
+  // for(var i = 0; i < this.resolution; i++){
+  //   var ray = this.rays[i];
+  //   console.log(ray.length);
+  // }
 };
 
-Camera.prototype.castRays = function(holder, plane){
+Camera.prototype.castRays = function(holder){
+
+  var ctx = this.ctx;
+
+  var width = this.ppc;
   for(var i = 0; i < this.resolution; i++){
     var y = i / this.resolution - 0.5;
     var angle = Math.atan2(y, this.focus);
-    var ray = this.castRay(holder.position, holder.theta + angle, plane);
+    var ray = this.castRay(holder.position, holder.theta + angle);
     this.rays[i] = ray;
-    console.log(ray);
+    var left = this.ppc * i;
+    var hit = 0;
+
+    while (hit < ray.length && ray[hit].height <= 0){
+      hit++;
+    }
+
+    for (var s = ray.length - 1; s >= 0; s--) {
+      var step = ray[s];
+      // var rainDrops = Math.pow(Math.random(), 3) * s;
+      // var rain = (rainDrops > 0) && this.project(0.1, angle, step.distance);
+
+      if (s === hit) {
+        var texture = this.plane.image;
+        // var textureX = Math.floor(texture.width * step.offset);
+        // var textureX = texture.width * step.offset;
+        var wall = this.project(step.height, angle, step.distance);
+
+        // ctx.globalAlpha = 1;
+        var textureX = Math.floor(128 * (step.texture - 1 + step.offset));
+        ctx.drawImage(texture, textureX, 0, 1, texture.height / 2, left, wall.top, width, wall.height);
+        // ctx.drawImage(texture.image, textureX, 0, 2, texture.height, left, wall.top, width, wall.height);
+        // ctx.fillStyle = '#000000';
+        // ctx.globalAlpha = Math.max((step.distance + step.shading) / this.lightRange - 1, 0);
+        // ctx.fillRect(left, wall.top, width, wall.height);
+      }
+      // ctx.fillStyle = '#ffffff';
+      // ctx.globalAlpha = 0.15;
+      // while (--rainDrops > 0) ctx.fillRect(left, Math.random() * rain.top, 1, rain.height);
+    }
   }
 };
 
-Camera.prototype.castRay = function(position, angle, plane){
+Camera.prototype.castRay = function(position, angle){
   var sin = Math.sin(angle);
   var cos = Math.cos(angle);
   var self = this;
 
-  var step = function (rise, run, x, y, inverted) {
+  var step_ = function (rise, run, x, y, inverted) {
     if (run === 0) {
       return { length2: Infinity };
     }
@@ -82,23 +123,25 @@ Camera.prototype.castRay = function(position, angle, plane){
     };
   };
 
-  var inspect = function(s, shiftX, shiftY, distance, offset) {
+  var inspect = function(step, shiftX, shiftY, distance, offset) {
     var dx = cos < 0 ? shiftX : 0;
     var dy = sin < 0 ? shiftY : 0;
-    s.height = plane.getGrid(Math.floor(s.x - dx), Math.floor(s.y - dy));
-    s.distance = distance + Math.sqrt(s.length2);
+    var grid = self.plane.getGrid(Math.floor(step.x - dx), Math.floor(step.y - dy));
+    step.texture = grid > 0 ? grid : 0;
+    step.height = grid > 0 ? 1 : 0;
+    step.distance = distance + Math.sqrt(step.length2);
     if (shiftX) {
-      s.shading = cos < 0 ? 2 : 0;
+      step.shading = cos < 0 ? 2 : 0;
     }else{
-      s.shading = sin < 0 ? 2 : 1;
+      step.shading = sin < 0 ? 2 : 1;
     }
-    s.offset = offset - Math.floor(offset);
-    return s;
+    step.offset = offset - Math.floor(offset);
+    return step;
   };
 
   var ray = function(origin) {
-    var stepX = step(sin, cos, origin.x, origin.y, false);
-    var stepY = step(cos, sin, origin.y, origin.x, true);
+    var stepX = step_(sin, cos, origin.x, origin.y, false);
+    var stepY = step_(cos, sin, origin.y, origin.x, true);
     var nextStep = stepX.length2 < stepY.length2 ? inspect(stepX, 1, 0, origin.distance, stepX.y) : inspect(stepY, 0, 1, origin.distance, stepY.x);
 
     if (nextStep.distance > self.range){
@@ -115,6 +158,16 @@ Camera.prototype.castRay = function(position, angle, plane){
   };
 
   return ray(point);
+};
+
+Camera.prototype.project = function(height, angle, distance) {
+  var z = distance * Math.cos(angle);
+  var wallHeight = this.height * height / z;
+  var bottom = this.height / 2 * (1 + 1 / z);
+  return {
+    top: bottom - wallHeight,
+    height: wallHeight
+  };
 };
 
 

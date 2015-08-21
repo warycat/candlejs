@@ -1,4 +1,4 @@
-/*global $ loadJS Input Loop Player Camera Plane Sky*/
+/*global $ loadJS Input Loop Player Camera Plane */
 
 
 var Candle = function (){
@@ -6,11 +6,17 @@ var Candle = function (){
   this.setCanvas({});
   this._entities = [];
   this._images = [];
+  this._jsons = [];
   this._sounds = [];
-  this._imageFiles = ['sky1.jpg'];
+
+  this._imageFiles = ['sky1.jpg', 'wall_texture.jpg', 'tiles.png'];
   this._imageFoler = 'images/';
+
+  this._jsonFiles = ['levels.json', 'Wolf00.json'];
+  this._jsonFolder = 'jsons/';
+
+  this._scriptFiles = ['input.js', 'loop.js', 'entity.js', 'level.js', 'plane.js', 'sky.js', 'camera.js', 'player.js'];
   this._scriptFolder = 'scripts/';
-  this._scriptFiles = ['input.js', 'loop.js', 'entity.js', 'player.js', 'plane.js', 'sky.js', 'camera.js'];
 };
 
 Candle.prototype = {
@@ -27,6 +33,12 @@ Candle.prototype = {
 , get imageFiles(){
     return this._imageFiles;
   }
+, get jsonFiles(){
+    return this._jsonFiles;
+  }
+, get jsonFolder(){
+    return this._jsonFolder;
+  }
 , get imageSrcs(){
     var self = this;
     var images = $.map(this._imageFiles, function(file){
@@ -39,6 +51,9 @@ Candle.prototype = {
   }
 , get images(){
     return this._images;
+  }
+, get jsons(){
+    return this._jsons;
   }
 , get ctx(){
     return this._ctx;
@@ -93,44 +108,82 @@ Candle.prototype.loadImages = function(imageFolder, imageFiles, callback) {
   }
 };
 
+Candle.prototype.loadJsons = function(jsonFolder, jsonFiles, callback){
+  var remaining = jsonFiles.length;
+  var self = this;
+  var onload = function(){
+    self._jsons[this.fileName] = JSON.parse(this.responseText);
+    remaining--;
+    if(remaining === 0){
+      callback();
+    }
+  };
+  for (var i = 0; i < jsonFiles.length; i++) {
+    var fileName = jsonFiles[i];
+    var jsonPath = jsonFolder + fileName;
+    var xhr = new XMLHttpRequest();
+    xhr.fileName = fileName;
+    xhr.onload = onload;
+    xhr.open('GET', jsonPath);
+    xhr.send();
+  }
+};
+
+
 Candle.prototype.load = function(){
   var self = this;
   self.about();
   self.loadScripts(self.scriptSrcs, function(){
     self.loadImages(self.imageFolder, self.imageFiles, function(){
-      self.wolf3d();
+      self.loadJsons(self.jsonFolder, self.jsonFiles, function(){
+        self.wolf3d();
+      });
     });
   });
 };
 
 Candle.prototype.wolf3d = function(){
+  // var level = new Level(this.jsons['levels.json']['maps/w00.map']);
+  // var newlevels = {};
+  // for(var i=0; i<3; i++){
+  //   for(var j=0; j<10; j++){
+  //     var key = 'maps/w' + i + j + '.map';
+  //     var str = this.jsons['levels.json'][key];
+  //     var level = new Level(str);
+  //     console.log('Wolf'+i+j+'.json');
+  //     level.print();
+  //   }
+  // }
+  var level = this.jsons['Wolf00.json'];
   var input = new Input();
   var loop = new Loop();
   var player = new Player('larry');
 
   player.control = function(){
     var states = input.states;
-    var speed = (states.up - states.down) * 0.1;
+    var speed = (states.up - states.down) * 0.005;
     var omega = (states.right - states.left) * 0.002;
     this.setOmega(omega);
     this.setSpeed(speed);
   };
 
   var canvas = this.canvas;
-  var sky = new Sky(canvas, this.images['sky1.jpg']);
-  var plane = new Plane(32);
-  var camera = new Camera(canvas, 2, 7, 0.8);
+  // var sky = new Sky(canvas, this.images['sky1.jpg']);
+  var plane = new Plane(canvas, level.ceiling, level.floor, 64, this.images['tiles.png'], level.grids);
+  var camera = new Camera(canvas, 8, 32, 0.8, plane);
 
   player.bindActionKey('space', 1000, function(){
-    console.log('cast');
-    camera.castRays(player, plane);
+    // camera.render();
   });
 
   loop.start(function(ms){
     player.control();
     player.motion(ms);
+    // console.log(player.position.x, player.position.y);
     player.onActionKey('space', input.states.space, ms);
-    sky.render(ms, player.theta, canvas.height / 2);
+    // sky.render(ms, player.theta, canvas.height / 2);
+    plane.render();
+    camera.castRays(player, plane);
     camera.render(ms);
   });
 };
