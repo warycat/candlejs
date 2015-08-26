@@ -1,5 +1,4 @@
-/*global $ loadJS Input Loop Player Camera Plane */
-
+/* global $ loadJS Input Loop God Player Camera Plane */
 
 var Candle = function (){
   this._about = 'This project is based on candle.js';
@@ -9,15 +8,17 @@ var Candle = function (){
   this._jsons = [];
   this._sounds = [];
 
-  this._imageFiles = ['sky1.jpg', 'wall_texture.jpg', 'tiles.png'];
+  this._imageFiles = ['sky1.jpg', 'wall_texture.jpg', 'tiles.png', 'artifacts.png'];
   this._imageFoler = 'images/';
 
-  this._jsonFiles = ['levels.json', 'Wolf00.json'];
+  this._jsonFiles = ['levels.json', 'Wolf08.json', 'artifacts.json'];
   this._jsonFolder = 'jsons/';
 
-  this._scriptFiles = ['input.js', 'loop.js', 'entity.js', 'level.js', 'plane.js', 'sky.js', 'camera.js', 'player.js'];
+  this._scriptFiles = ['input.js', 'loop.js', 'level.js', 'entity.js', 'artifact.js', 'bot.js', 'god.js', 'sky.js', 'plane.js', 'camera.js', 'player.js'];
   this._scriptFolder = 'scripts/';
 };
+
+Candle.PPU = 128;
 
 Candle.prototype = {
   get scriptSrcs(){
@@ -81,14 +82,19 @@ Candle.prototype.init = function(scripts){
 
 Candle.prototype.loadScripts = function(scripts, callback){
   var progress = 0;
+  var script = scripts[progress];
   var internalCallback = function () {
     if (++progress === scripts.length) {
       callback();
+    }else{
+      script = scripts[progress];
+      loadJS(script, internalCallback);
     }
   };
-  scripts.forEach(function(script) {
-    loadJS(script, internalCallback);
-  });
+  loadJS(script, internalCallback);
+  // scripts.forEach(function(script) {
+  //   loadJS(script, internalCallback);
+  // });
 };
 
 Candle.prototype.loadImages = function(imageFolder, imageFiles, callback) {
@@ -154,10 +160,13 @@ Candle.prototype.wolf3d = function(){
   //     level.print();
   //   }
   // }
-  var level = this.jsons['Wolf00.json'];
+  var level = this.jsons['Wolf08.json'];
   var input = new Input();
   var loop = new Loop();
   var player = new Player('larry');
+  player.setPosition(24.5, 24.5);
+  player.setTheta(0);
+  var ctx = this.ctx;
 
   player.control = function(){
     var states = input.states;
@@ -169,22 +178,60 @@ Candle.prototype.wolf3d = function(){
 
   var canvas = this.canvas;
   // var sky = new Sky(canvas, this.images['sky1.jpg']);
-  var plane = new Plane(canvas, level.ceiling, level.floor, 64, this.images['tiles.png'], level.grids);
-  var camera = new Camera(canvas, 8, 32, 0.8, plane);
+  var plane = new Plane(canvas, level.ceiling, level.floor, this.images['tiles.png'], 64, level.grids);
+
+  var camera = new Camera(canvas, 2, 32, 0.8, plane);
+  var artifacts = {
+    info: this.jsons['artifacts.json']
+  , texture: this.images['artifacts.png']
+  };
+  var god = new God(canvas, artifacts, null, 64, level.grids);
 
   player.bindActionKey('space', 1000, function(){
-    // camera.render();
+    god.render();
   });
 
   loop.start(function(ms){
     player.control();
     player.motion(ms);
-    // console.log(player.position.x, player.position.y);
     player.onActionKey('space', input.states.space, ms);
     // sky.render(ms, player.theta, canvas.height / 2);
     plane.render();
     camera.castRays(player, plane);
-    camera.render(ms);
+    god.viewFrom(player, 0.8);
+    var ws = camera.render();
+    var es = god.render();
+    var rs = [];
+    for(var i in ws){
+      var w = ws[i];
+      if(w){
+        rs.push(w);
+      }
+    }
+    for(var j in es){
+      var e = es[j];
+      if(e){
+        rs.push(e);
+      }
+    }
+
+    function compare(a, b){
+      if(a.distance < b.distance) {
+        return 1;
+      }
+      if(a.distance > b.distance) {
+        return -1;
+      }
+      return 0;
+    }
+
+    rs.sort(compare);
+
+    for(var k in rs){
+      var r = rs[k];
+      ctx.drawImage(r.texture, r.sx, r.sy, r.sw, r.sh, r.dx, r.dy, r.dw, r.dh);
+    }
+
   });
 };
 

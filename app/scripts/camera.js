@@ -1,15 +1,16 @@
+/* global Candle */
+
 var Camera = function(canvas, ppc, range, focus, plane){
   this._canvas = canvas;
   this._ctx = canvas.getContext('2d');
-  this._width = canvas.width;
-  this._height = canvas.height;
   this._ppc = ppc;
-  this._resolution = Math.floor(this._width / this._ppc);
+  this._resolution = Math.floor(canvas.width / this._ppc);
   this._range = range;
   this._focus = focus;
   this._plane = plane;
   this._columns = [];
   this._rays = [];
+  this._render = [];
 };
 
 Camera.prototype = {
@@ -18,12 +19,6 @@ Camera.prototype = {
   }
 , get ctx(){
     return this._ctx;
-  }
-, get width(){
-    return this._width;
-  }
-, get height(){
-    return this._height;
   }
 , get ppc(){
     return this._ppc;
@@ -59,13 +54,13 @@ Camera.prototype.render = function(){
   //   var ray = this.rays[i];
   //   console.log(ray.length);
   // }
+  return this._render;
 };
 
 Camera.prototype.castRays = function(holder){
-
-  var ctx = this.ctx;
-
+  var texture = this.plane.image;
   var width = this.ppc;
+
   for(var i = 0; i < this.resolution; i++){
     var y = i / this.resolution - 0.5;
     var angle = Math.atan2(y, this.focus);
@@ -77,29 +72,27 @@ Camera.prototype.castRays = function(holder){
     while (hit < ray.length && ray[hit].height <= 0){
       hit++;
     }
-
     for (var s = ray.length - 1; s >= 0; s--) {
       var step = ray[s];
-      // var rainDrops = Math.pow(Math.random(), 3) * s;
-      // var rain = (rainDrops > 0) && this.project(0.1, angle, step.distance);
-
       if (s === hit) {
-        var texture = this.plane.image;
-        // var textureX = Math.floor(texture.width * step.offset);
-        // var textureX = texture.width * step.offset;
         var wall = this.project(step.height, angle, step.distance);
-
-        // ctx.globalAlpha = 1;
-        var textureX = Math.floor(128 * (step.texture - 1 + step.offset));
-        ctx.drawImage(texture, textureX, 0, 1, texture.height / 2, left, wall.top, width, wall.height);
-        // ctx.drawImage(texture.image, textureX, 0, 2, texture.height, left, wall.top, width, wall.height);
-        // ctx.fillStyle = '#000000';
-        // ctx.globalAlpha = Math.max((step.distance + step.shading) / this.lightRange - 1, 0);
-        // ctx.fillRect(left, wall.top, width, wall.height);
+        var textureX = Math.floor(Candle.PPU * (step.texture - 1 + step.offset));
+        this._render[i] = {
+          distance: step.distance
+        , texture: texture
+        , sx: textureX
+        , sy: 0
+        , sw: 1
+        , sh: Candle.PPU
+        , dx: left
+        , dy: wall.top
+        , dw: width
+        , dh: wall.height
+        };
+        break;
+      }else{
+        this._render[i] = null;
       }
-      // ctx.fillStyle = '#ffffff';
-      // ctx.globalAlpha = 0.15;
-      // while (--rainDrops > 0) ctx.fillRect(left, Math.random() * rain.top, 1, rain.height);
     }
   }
 };
@@ -126,7 +119,7 @@ Camera.prototype.castRay = function(position, angle){
   var inspect = function(step, shiftX, shiftY, distance, offset) {
     var dx = cos < 0 ? shiftX : 0;
     var dy = sin < 0 ? shiftY : 0;
-    var grid = self.plane.getGrid(Math.floor(step.x - dx), Math.floor(step.y - dy));
+    var grid = self.plane.getWall(Math.floor(step.x - dx), Math.floor(step.y - dy));
     step.texture = grid > 0 ? grid : 0;
     step.height = grid > 0 ? 1 : 0;
     step.distance = distance + Math.sqrt(step.length2);
@@ -162,8 +155,8 @@ Camera.prototype.castRay = function(position, angle){
 
 Camera.prototype.project = function(height, angle, distance) {
   var z = distance * Math.cos(angle);
-  var wallHeight = this.height * height / z;
-  var bottom = this.height / 2 * (1 + 1 / z);
+  var wallHeight = this.canvas.height * height / z;
+  var bottom = this.canvas.height / 2 * (1 + 1 / z);
   return {
     top: bottom - wallHeight,
     height: wallHeight

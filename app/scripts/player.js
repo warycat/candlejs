@@ -2,6 +2,8 @@
 
 var Player = function(name){
   this._name = name;
+  this._bindings = {};
+  Entity.call(this);
 };
 
 Player.prototype = new Entity();
@@ -9,6 +11,12 @@ Player.prototype = new Entity();
 Object.defineProperty(Player.prototype, 'name', {
   get: function(){
     return this._name;
+  }
+});
+
+Object.defineProperty(Player.prototype, 'bindings', {
+  get: function(){
+    return this._bindings;
   }
 });
 

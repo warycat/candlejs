@@ -1,0 +1,242 @@
+{
+  "23": {
+    "name": "puddle",
+    "block": false,
+    "tag": 23
+  },
+  "24": {
+    "name": "Green Barrel",
+    "block": true,
+    "tag": 24
+  },
+  "25": {
+    "name": "Table/chairs",
+    "block": true,
+    "tag": 25
+  },
+  "26": {
+    "name": "Floor lamp",
+    "block": true,
+    "tag": 26
+  },
+  "27": {
+    "name": "Chandelier",
+    "block": false,
+    "tag": 27
+  },
+  "28": {
+    "name": "Hanged man",
+    "block": true,
+    "tag": 28
+  },
+  "29": {
+    "name": "Bad food",
+    "block": false,
+    "tag": 29
+  },
+  "30": {
+    "name": "Red pillar",
+    "block": true,
+    "tag": 30
+  },
+  "31": {
+    "name": "Tree",
+    "block": true,
+    "tag": 31
+  },
+  "32": {
+    "name": "Skeleton flat",
+    "block": false,
+    "tag": 32
+  },
+  "33": {
+    "name": "Sink",
+    "block": true,
+    "tag": 33
+  },
+  "34": {
+    "name": "Potted plant",
+    "block": true,
+    "tag": 34
+  },
+  "35": {
+    "name": "Urn",
+    "block": true,
+    "tag": 35
+  },
+  "36": {
+    "name": "Bare table",
+    "block": true,
+    "tag": 36
+  },
+  "37": {
+    "name": "Ceiling light",
+    "block": false,
+    "tag": 37
+  },
+  "38": {
+    "name": "Kitchen stuff",
+    "block": false,
+    "tag": 38
+  },
+  "39": {
+    "name": "suit of armor",
+    "block": true,
+    "tag": 39
+  },
+  "40": {
+    "name": "Hanging cage",
+    "block": true,
+    "tag": 40
+  },
+  "41": {
+    "name": "SkeletoninCage",
+    "block": true,
+    "tag": 41
+  },
+  "42": {
+    "name": "Skeleton relax",
+    "block": false,
+    "tag": 42
+  },
+  "43": {
+    "name": "Key 1",
+    "block": false,
+    "tag": 43
+  },
+  "44": {
+    "name": "Key 2",
+    "block": false,
+    "tag": 44
+  },
+  "45": {
+    "name": "stuff",
+    "block": true,
+    "tag": 45
+  },
+  "46": {
+    "name": "stuff",
+    "block": false,
+    "tag": 46
+  },
+  "47": {
+    "name": "Good food",
+    "block": false,
+    "tag": 47
+  },
+  "48": {
+    "name": "First aid",
+    "block": false,
+    "tag": 48
+  },
+  "49": {
+    "name": "Clip",
+    "block": false,
+    "tag": 49
+  },
+  "50": {
+    "name": "Machine gun",
+    "block": false,
+    "tag": 50
+  },
+  "51": {
+    "name": "Gatling gun",
+    "block": false,
+    "tag": 51
+  },
+  "52": {
+    "name": "Cross",
+    "block": false,
+    "tag": 52
+  },
+  "53": {
+    "name": "Chalice",
+    "block": false,
+    "tag": 53
+  },
+  "54": {
+    "name": "Bible",
+    "block": false,
+    "tag": 54
+  },
+  "55": {
+    "name": "crown",
+    "block": false,
+    "tag": 55
+  },
+  "56": {
+    "name": "one up",
+    "block": false,
+    "tag": 56
+  },
+  "57": {
+    "name": "gibs",
+    "block": false,
+    "tag": 57
+  },
+  "58": {
+    "name": "barrel",
+    "block": true,
+    "tag": 58
+  },
+  "59": {
+    "name": "well",
+    "block": true,
+    "tag": 59
+  },
+  "60": {
+    "name": "Empty well",
+    "block": true,
+    "tag": 60
+  },
+  "61": {
+    "name": "Gibs 2",
+    "block": false,
+    "tag": 61
+  },
+  "62": {
+    "name": "flag",
+    "block": true,
+    "tag": 62
+  },
+  "63": {
+    "name": "Call Apogee",
+    "block": true,
+    "tag": 63
+  },
+  "64": {
+    "name": "junk",
+    "block": false,
+    "tag": 64
+  },
+  "65": {
+    "name": "junk",
+    "block": false,
+    "tag": 65
+  },
+  "66": {
+    "name": "junk",
+    "block": false,
+    "tag": 66
+  },
+  "67": {
+    "name": "pots",
+    "block": false,
+    "tag": 67
+  },
+  "68": {
+    "name": "stove",
+    "block": true,
+    "tag": 68
+  },
+  "69": {
+    "name": "spears",
+    "block": true,
+    "tag": 69
+  },
+  "70": {
+    "name": "vines",
+    "block": false,
+    "tag": 70
+  }
+}
