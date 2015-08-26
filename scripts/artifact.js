@@ -1,0 +1,1 @@
+var Artifact=function(t,e,n){console.log(t+" Spawned"),this._name=t,this._tag=e,this._texture=n,Entity.call(this)};Artifact.prototype=new Entity,Object.defineProperty(Artifact.prototype,"name",{get:function(){return this._name}}),Object.defineProperty(Artifact.prototype,"tag",{get:function(){return this._tag}});

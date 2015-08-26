@@ -1,0 +1,1 @@
+var Bot=function(t){console.log(t+" Spawned"),this._name=t,Entity.call(this)};Bot.prototype=new Entity,Object.defineProperty(Bot.prototype,"name",{get:function(){return this._name}});
