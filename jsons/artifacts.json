@@ -238,5 +238,10 @@
     "name": "vines",
     "block": false,
     "tag": 70
+  },
+  "71": {
+    "name": "Red pillar",
+    "block": true,
+    "tag": 71
   }
 }
