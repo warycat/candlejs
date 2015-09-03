@@ -1,0 +1,7 @@
+{
+  "step1":{
+    "name": "step1"
+  , "files": ["cropgangnam1-0.png", "cropgangnam1-1.png", "cropgangnam1-2.png", "cropgangnam1-3.png", "cropgangnam1-4.png", "cropgangnam1-5.png", "cropgangnam1-6.png", "cropgangnam1-7.png", "cropgangnam1-8.png", "cropgangnam1-9.png", "cropgangnam1-10.png", "cropgangnam1-11.png", "cropgangnam1-12.png", "cropgangnam1-13.png", "cropgangnam1-14.png", "cropgangnam1-15.png", "cropgangnam1-16.png", "cropgangnam1-17.png", "cropgangnam1-18.png"]
+  , "ms": 50
+  }
+}

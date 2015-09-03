@@ -1,9 +1,11 @@
-/* global Candle Entity Artifact Bot */
+/* global Artifact Bot */
 
-var God = function(canvas, artifacts, bots, size, grids){
+var God = function(canvas, artifactsInfo, botsInfo, size, grids){
   this._canvas = canvas;
-  this._artifacts = artifacts;
-  this._bots = bots;
+  this._artifactsInfo = artifactsInfo;
+  this._botsInfo = botsInfo;
+  this._bots = [];
+  this._artifacts = [];
   this._pool = [];
   this._render = [];
 
@@ -11,15 +13,10 @@ var God = function(canvas, artifacts, bots, size, grids){
     for(var j = 0; j < size; j++){
       if(grids[i][j] > 0){
         var tag = grids[i][j];
-        var Fn = this.spawnFn(tag);
-
-        if(Fn === Artifact){
-          var name = artifacts.info[tag].name;
-          var entity = new Fn(name, tag);
+        var entity = this.spawnFn(tag, artifactsInfo, botsInfo);
+        if(entity){
           entity.setPosition(i + 0.5, j + 0.5);
           this.pool.push(entity);
-        }else if(Fn === Bot){
-          console.log('bot');
         }
       }
     }
@@ -27,8 +24,17 @@ var God = function(canvas, artifacts, bots, size, grids){
 };
 
 God.prototype = {
-  get artifacts(){
+  get artifactsInfo(){
+    return this._artifactsInfo;
+  }
+, get botsInfo(){
+    return this._botsInfo;
+  }
+, get artifacts(){
     return this._artifacts;
+  }
+, get bots(){
+    return this._bots;
   }
 , get pool(){
     return this._pool;
@@ -38,18 +44,26 @@ God.prototype = {
   }
 };
 
-God.prototype.spawnFn = function(tag){
-  if(tag === 1){
-    return Entity;
-  }else if(tag === 2){
-    return Artifact;
-  }else if(tag === 3){
-    return Bot;
-  }else if(tag >= 23 && tag < 23 + 48){
-    return Artifact;
+God.prototype.spawnFn = function(tag, artifacts, bots){
+  var name;
+  var texture;
+  if(tag >= 23 && tag < 72){
+    name = artifacts.info[tag].name;
+    texture = this.artifactsInfo.texture;
+    var artifact = new Artifact(name, tag, texture);
+    this.artifacts.push(artifacts);
+    return artifact;
+  }else if(tag === 500){
+    name = bots[tag].name;
+    texture = bots[tag].texture;
+    var atlas = bots[tag].atlas;
+    var animations = bots[tag].animations;
+    var bot = new Bot(name, tag, texture, atlas, animations);
+    this.bots.push(bot);
+    return bot;
   }else{
     console.log(tag + ' Entity Not Found');
-    return function(){};
+    return null;
   }
 };
 
@@ -59,7 +73,6 @@ God.prototype.render = function(){
 
 God.prototype.viewFrom = function(player, focus){
   var ppos = player.position;
-  var texture = this.artifacts.texture;
   var viewDist = this.canvas.width * focus;
   for (var i = this.pool.length - 1; i >= 0; i--) {
     var entity = this.pool[i];
@@ -75,10 +88,8 @@ God.prototype.viewFrom = function(player, focus){
     }else{
       var p = this.project(angle, distance, viewDist);
 
-      var sx = Candle.PPU * (entity.tag - 23);
-      var sy = 0;
-      var sw = Candle.PPU;
-      var sh = Candle.PPU;
+      var texture = entity.texture;
+      var rect = entity.rect();
 
       var dx = p.left;
       var dy = p.top;
@@ -88,16 +99,23 @@ God.prototype.viewFrom = function(player, focus){
       this._render[i] = {
         distance: distance
       , texture: texture
-      , sx: sx
-      , sy: sy
-      , sw: sw
-      , sh: sh
+      , sx: rect.x
+      , sy: rect.y
+      , sw: rect.w
+      , sh: rect.h
       , dx: dx
       , dy: dy
       , dw: dw
       , dh: dh
       };
     }
+  }
+};
+
+God.prototype.animate = function(ms){
+  for(var i = this.bots.length - 1; i >= 0; i--){
+    var bot = this.bots[i];
+    bot.animate(ms);
   }
 };
 

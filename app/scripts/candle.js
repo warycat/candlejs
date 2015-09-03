@@ -8,10 +8,10 @@ var Candle = function (){
   this._jsons = [];
   this._sounds = [];
 
-  this._imageFiles = ['sky1.jpg', 'wall_texture.jpg', 'tiles.png', 'artifacts.png'];
+  this._imageFiles = ['sky1.jpg', 'wall_texture.jpg', 'tiles.png', 'artifacts.png', 'gangnam.png'];
   this._imageFoler = 'images/';
 
-  this._jsonFiles = ['levels.json', 'Wolf08.json', 'artifacts.json'];
+  this._jsonFiles = ['levels.json', 'Wolf08.json', 'artifacts.json', 'gangnamAtlas.json', 'gangnamLevel.json', 'gangnamAnimations.json'];
   this._jsonFolder = 'jsons/';
 
   this._scriptFiles = ['input.js', 'loop.js', 'level.js', 'entity.js', 'artifact.js', 'bot.js', 'god.js', 'sky.js', 'plane.js', 'camera.js', 'player.js'];
@@ -148,25 +148,48 @@ Candle.prototype.load = function(){
   });
 };
 
+Candle.prototype.render = function(ws, es){
+  var ctx = this.ctx;
+  var rs = [];
+  for(var i in ws){
+    var w = ws[i];
+    if(w){
+      rs.push(w);
+    }
+  }
+  for(var j in es){
+    var e = es[j];
+    if(e){
+      rs.push(e);
+    }
+  }
+
+  function compare(a, b){
+    if(a.distance < b.distance) {
+      return 1;
+    }
+    if(a.distance > b.distance) {
+      return -1;
+    }
+    return 0;
+  }
+
+  rs.sort(compare);
+
+  for(var k in rs){
+    var r = rs[k];
+    ctx.drawImage(r.texture, r.sx, r.sy, r.sw, r.sh, r.dx, r.dy, r.dw, r.dh);
+  }
+};
+
+
 Candle.prototype.wolf3d = function(){
-  // var level = new Level(this.jsons['levels.json']['maps/w00.map']);
-  // var newlevels = {};
-  // for(var i=0; i<3; i++){
-  //   for(var j=0; j<10; j++){
-  //     var key = 'maps/w' + i + j + '.map';
-  //     var str = this.jsons['levels.json'][key];
-  //     var level = new Level(str);
-  //     console.log('Wolf'+i+j+'.json');
-  //     level.print();
-  //   }
-  // }
-  var level = this.jsons['Wolf08.json'];
+  var level = this.jsons['gangnamLevel.json'];
   var input = new Input();
   var loop = new Loop();
   var player = new Player('larry');
-  player.setPosition(24.5, 24.5);
-  player.setTheta(0);
-  var ctx = this.ctx;
+  player.setPosition(12, 12);
+  player.setTheta(Math.PI);
 
   player.control = function(){
     var states = input.states;
@@ -181,11 +204,27 @@ Candle.prototype.wolf3d = function(){
   var plane = new Plane(canvas, level.ceiling, level.floor, this.images['tiles.png'], 64, level.grids);
 
   var camera = new Camera(canvas, 2, 32, 0.8, plane);
-  var artifacts = {
+  var artifactsInfo = {
     info: this.jsons['artifacts.json']
   , texture: this.images['artifacts.png']
   };
-  var god = new God(canvas, artifacts, null, 64, level.grids);
+  var botsInfo = {
+  '500': {
+      name: 'Gangnam'
+    , tag: 500
+    , texture: this.images['gangnam.png']
+    , atlas: this.jsons['gangnamAtlas.json']
+    , animations: this.jsons['gangnamAnimations.json']
+    }
+  };
+  var god = new God(canvas, artifactsInfo, botsInfo, 64, level.grids);
+  var bots = god.bots;
+  for(var i = 0; i < bots.length; i++){
+    var bot = bots[i];
+    if(bot.tag === 500){
+      bot.setAnimation('step1');
+    }
+  }
 
   player.bindActionKey('space', 1000, function(){
     god.render();
@@ -198,40 +237,11 @@ Candle.prototype.wolf3d = function(){
     // sky.render(ms, player.theta, canvas.height / 2);
     plane.render();
     camera.castRays(player, plane);
+    god.animate(ms);
     god.viewFrom(player, 0.8);
     var ws = camera.render();
     var es = god.render();
-    var rs = [];
-    for(var i in ws){
-      var w = ws[i];
-      if(w){
-        rs.push(w);
-      }
-    }
-    for(var j in es){
-      var e = es[j];
-      if(e){
-        rs.push(e);
-      }
-    }
-
-    function compare(a, b){
-      if(a.distance < b.distance) {
-        return 1;
-      }
-      if(a.distance > b.distance) {
-        return -1;
-      }
-      return 0;
-    }
-
-    rs.sort(compare);
-
-    for(var k in rs){
-      var r = rs[k];
-      ctx.drawImage(r.texture, r.sx, r.sy, r.sw, r.sh, r.dx, r.dy, r.dw, r.dh);
-    }
-
-  });
+    this.render(ws, es);
+  }.bind(this));
 };
 
