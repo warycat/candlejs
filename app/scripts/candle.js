@@ -1,51 +1,20 @@
 /* global $ loadJS Input Loop God Player Camera Plane */
 
-var Candle = function (){
+var Candle = function (assets){
   this._about = 'This project is based on candle.js';
   this.setCanvas({});
   this._entities = [];
-  this._images = [];
-  this._jsons = [];
-  this._sounds = [];
-
-  this._imageFiles = ['sky1.jpg', 'wall_texture.jpg', 'tiles.png', 'artifacts.png', 'gangnam.png'];
-  this._imageFoler = 'images/';
-
-  this._jsonFiles = ['levels.json', 'Wolf08.json', 'artifacts.json', 'gangnamAtlas.json', 'gangnamLevel.json', 'gangnamAnimations.json'];
-  this._jsonFolder = 'jsons/';
-
-  this._scriptFiles = ['input.js', 'loop.js', 'level.js', 'entity.js', 'artifact.js', 'bot.js', 'god.js', 'sky.js', 'plane.js', 'camera.js', 'player.js'];
-  this._scriptFolder = 'scripts/';
+  this._images = {};
+  this._jsons = {};
+  this._sounds = {};
+  this._assets = assets;
 };
 
 Candle.PPU = 128;
 
 Candle.prototype = {
-  get scriptSrcs(){
-    var self = this;
-    var scripts = $.map(this._scriptFiles, function(file){
-      return self._scriptFolder + file;
-    });
-    return scripts;
-  }
-, get imageFolder(){
-    return this._imageFoler;
-  }
-, get imageFiles(){
-    return this._imageFiles;
-  }
-, get jsonFiles(){
-    return this._jsonFiles;
-  }
-, get jsonFolder(){
-    return this._jsonFolder;
-  }
-, get imageSrcs(){
-    var self = this;
-    var images = $.map(this._imageFiles, function(file){
-      return self._imageFoler + file;
-    });
-    return images;
+  get assets(){
+    return this._assets;
   }
 , get canvas(){
     return this._canvas;
@@ -55,6 +24,9 @@ Candle.prototype = {
   }
 , get jsons(){
     return this._jsons;
+  }
+, get sounds(){
+    return this._sounds;
   }
 , get ctx(){
     return this._ctx;
@@ -80,24 +52,26 @@ Candle.prototype.init = function(scripts){
 };
 
 
-Candle.prototype.loadScripts = function(scripts, callback){
+Candle.prototype.loadScripts = function(callback){
+  var scriptSrcs = $.map(this.assets.scriptFiles, function(file){
+    return self.assets.scriptFolder + file;
+  });
   var progress = 0;
-  var script = scripts[progress];
+  var script = scriptSrcs[progress];
   var internalCallback = function () {
-    if (++progress === scripts.length) {
+    if (++progress === scriptSrcs.length) {
       callback();
     }else{
-      script = scripts[progress];
+      script = scriptSrcs[progress];
       loadJS(script, internalCallback);
     }
   };
   loadJS(script, internalCallback);
-  // scripts.forEach(function(script) {
-  //   loadJS(script, internalCallback);
-  // });
 };
 
-Candle.prototype.loadImages = function(imageFolder, imageFiles, callback) {
+Candle.prototype.loadImages = function(callback) {
+  var imageFolder = this.assets.imageFolder;
+  var imageFiles = this.assets.imageFiles;
   var remaining = imageFiles.length;
   var onload = function() {
     remaining--;
@@ -114,7 +88,9 @@ Candle.prototype.loadImages = function(imageFolder, imageFiles, callback) {
   }
 };
 
-Candle.prototype.loadJsons = function(jsonFolder, jsonFiles, callback){
+Candle.prototype.loadJsons = function(callback){
+  var jsonFolder = this.assets.jsonFolder;
+  var jsonFiles = this.assets.jsonFiles;
   var remaining = jsonFiles.length;
   var self = this;
   var onload = function(){
@@ -135,17 +111,53 @@ Candle.prototype.loadJsons = function(jsonFolder, jsonFiles, callback){
   }
 };
 
+Candle.prototype.loadSounds = function(callback){
+  var soundFiles = this.assets.soundFiles;
+  var soundFolder = this.assets.soundFolder;
+  var remaining = soundFiles.length;
+  var oncanplaythrough = function(){
+    remaining--;
+    if(remaining === 0){
+      callback();
+    }
+  };
+  for (var i = 0; i < soundFiles.length; i++){
+    var fileName = soundFiles[i];
+    var soundPath = soundFolder + fileName;
+    var audioElm = document.createElement('audio');
+    audioElm.src = soundPath;
+    audioElm.oncanplaythrough = oncanplaythrough;
+    document.body.appendChild(audioElm);
+    this._sounds[fileName] = audioElm;
+  }
+};
 
-Candle.prototype.load = function(){
+
+Candle.prototype.load = function(callback){
   var self = this;
   self.about();
-  self.loadScripts(self.scriptSrcs, function(){
-    self.loadImages(self.imageFolder, self.imageFiles, function(){
-      self.loadJsons(self.jsonFolder, self.jsonFiles, function(){
-        self.wolf3d();
+  self.test();
+  self.loadSounds(function(){
+    self.loadScripts(function(){
+      self.loadImages(function(){
+        self.loadJsons(function(){
+          callback.call(this);
+          // self.wolf3d();
+        });
       });
     });
   });
+};
+
+Candle.prototype.test = function(){
+  if (this.assets.scriptFolder === undefined ) { console.log('scriptFolder: ', this.assets.scriptFolder); }
+  if (this.assets.scriptFiles === undefined ) { console.log('scriptFiles: ', this.assets.scriptFiles); }
+  if (this.assets.imageFolder === undefined ) { console.log('imageFolder: ', this.assets.imageFolder); }
+  if (this.assets.imageFiles === undefined ) { console.log('imageFiles: ', this.assets.imageFiles); }
+  if (this.assets.jsonFolder === undefined ) { console.log('jsonFolder: ', this.assets.jsonFolder); }
+  if (this.assets.jsonFiles === undefined ) { console.log('jsonFiles: ', this.assets.jsonFiles); }
+  if (this.assets.soundFolder === undefined ) { console.log('soundFolder: ', this.assets.soundFolder); }
+  if (this.assets.soundFiles === undefined ) { console.log('soundFiles: ', this.assets.soundFiles); }
 };
 
 Candle.prototype.render = function(ws, es){
@@ -225,6 +237,7 @@ Candle.prototype.wolf3d = function(){
       bot.setAnimation('step1');
     }
   }
+  this.sounds['gangnam.mp3'].play();
 
   player.bindActionKey('space', 1000, function(){
     god.render();
