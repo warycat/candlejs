@@ -88,6 +88,10 @@ gulp.task('jsons', () => {
   return gulp.src('app/jsons/*.*').pipe(gulp.dest('dist/jsons'));
 });
 
+gulp.task('sounds', () => {
+  return gulp.src('app/sounds/*.*').pipe(gulp.dest('dist/sounds'));
+});
+
 gulp.task('extras', () => {
   return gulp.src([
     'app/*.*',
@@ -173,7 +177,7 @@ gulp.task('wiredep', () => {
     .pipe(gulp.dest('app'));
 });
 
-gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras', 'jsons', 'scripts'], () => {
+gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras', 'jsons', 'sounds', 'scripts'], () => {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 
