@@ -1,13 +1,13 @@
 /* global $ loadJS Input Loop God Player Camera Plane */
 
-var Candle = function (assets){
+var Candle = function (assets, canvasConfig){
   this._about = 'This project is based on candle.js';
-  this.setCanvas({});
   this._entities = [];
   this._images = {};
   this._jsons = {};
   this._sounds = {};
   this._assets = assets;
+  this.setCanvas(canvasConfig);
 };
 
 Candle.PPU = 128;
@@ -31,14 +31,23 @@ Candle.prototype = {
 , get ctx(){
     return this._ctx;
   }
+, get loop(){
+    return this._loop;
+  }
+, get input(){
+    return this._input;
+  }
 };
 
 Candle.prototype.setCanvas = function(opt){
   this._canvas = document.getElementById(opt.id || 'display');
   this._canvas.width = opt.width || 640;
   this._canvas.height = opt.height || 480;
+  this._canvas.style.position = opt.position;
+  this._canvas.style.top = opt.top;
+  this._canvas.style.left = opt.left;
   this._canvas.style.display = 'block';
-  this._canvas.style.margin = 'auto';
+  // this._canvas.style.margin = 'auto';
   this._canvas.style.background = '#f0f0f0';
   this._ctx = this._canvas.getContext('2d');
 };
@@ -47,8 +56,9 @@ Candle.prototype.about = function(){
   console.log(this._about);
 };
 
-Candle.prototype.init = function(scripts){
-  this._scripts.push.apply(this._scripts, scripts);
+Candle.prototype.scriptsDidLoad = function(){
+  this._input = new Input();
+  this._loop = new Loop();
 };
 
 
@@ -117,6 +127,7 @@ Candle.prototype.loadSounds = function(callback){
   var remaining = soundFiles.length;
   var oncanplaythrough = function(){
     remaining--;
+    console.log(remaining);
     if(remaining === 0){
       callback();
     }
@@ -141,8 +152,8 @@ Candle.prototype.load = function(callback){
     self.loadScripts(function(){
       self.loadImages(function(){
         self.loadJsons(function(){
-          callback.call(this);
-          // self.wolf3d();
+          self.scriptsDidLoad();
+          callback.call(self);
         });
       });
     });
