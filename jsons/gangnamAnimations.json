@@ -4,4 +4,20 @@
   , "files": ["cropgangnam1-0.png", "cropgangnam1-1.png", "cropgangnam1-2.png", "cropgangnam1-3.png", "cropgangnam1-4.png", "cropgangnam1-5.png", "cropgangnam1-6.png", "cropgangnam1-7.png", "cropgangnam1-8.png", "cropgangnam1-9.png", "cropgangnam1-10.png", "cropgangnam1-11.png", "cropgangnam1-12.png", "cropgangnam1-13.png", "cropgangnam1-14.png", "cropgangnam1-15.png", "cropgangnam1-16.png", "cropgangnam1-17.png", "cropgangnam1-18.png"]
   , "ms": 50
   }
+, "step2":{
+    "name": "step2"
+  , "files": ["cropgangnam2-0.png", "cropgangnam2-1.png", "cropgangnam2-2.png", "cropgangnam2-3.png", "cropgangnam2-4.png", "cropgangnam2-5.png", "cropgangnam2-6.png", "cropgangnam2-7.png", "cropgangnam2-8.png", "cropgangnam2-9.png", "cropgangnam2-10.png", "cropgangnam2-11.png", "cropgangnam2-12.png", "cropgangnam2-13.png", "cropgangnam2-14.png", "cropgangnam2-15.png", "cropgangnam2-16.png", "cropgangnam2-17.png", "cropgangnam2-18.png", "cropgangnam2-19.png", "cropgangnam2-20.png", "cropgangnam2-21.png", "cropgangnam2-22.png", "cropgangnam2-23.png", "cropgangnam2-24.png", "cropgangnam2-25.png", "cropgangnam2-26.png", "cropgangnam2-27.png", "cropgangnam2-28.png", "cropgangnam2-29.png", "cropgangnam2-30.png", "cropgangnam2-31.png", "cropgangnam2-32.png", "cropgangnam2-33.png", "cropgangnam2-34.png", "cropgangnam2-35.png", "cropgangnam2-36.png", "cropgangnam2-37.png", "cropgangnam2-38.png", "cropgangnam2-39.png", "cropgangnam2-40.png", "cropgangnam2-41.png", "cropgangnam2-42.png", "cropgangnam2-43.png", "cropgangnam2-44.png", "cropgangnam2-45.png", "cropgangnam2-46.png", "cropgangnam2-47.png", "cropgangnam2-48.png", "cropgangnam2-49.png", "cropgangnam2-50.png", "cropgangnam2-51.png", "cropgangnam2-52.png", "cropgangnam2-53.png", "cropgangnam2-54.png", "cropgangnam2-55.png", "cropgangnam2-56.png", "cropgangnam2-57.png", "cropgangnam2-58.png", "cropgangnam2-59.png", "cropgangnam2-60.png", "cropgangnam2-61.png", "cropgangnam2-62.png", "cropgangnam2-63.png", "cropgangnam2-64.png", "cropgangnam2-65.png", "cropgangnam2-66.png"]
+  , "ms": 50
+  }
+, "step3":{
+    "name": "step3"
+  , "files": ["cropgangnam3-0.png", "cropgangnam3-1.png", "cropgangnam3-2.png", "cropgangnam3-3.png", "cropgangnam3-4.png", "cropgangnam3-5.png", "cropgangnam3-6.png", "cropgangnam3-7.png", "cropgangnam3-8.png", "cropgangnam3-9.png", "cropgangnam3-10.png"]
+  , "ms": 50
+  }
+, "step4":{
+    "name": "step4"
+  , "files": ["cropgangnam4-0.png", "cropgangnam4-1.png", "cropgangnam4-2.png", "cropgangnam4-3.png", "cropgangnam4-4.png", "cropgangnam4-5.png", "cropgangnam4-6.png", "cropgangnam4-7.png", "cropgangnam4-8.png", "cropgangnam4-9.png", "cropgangnam4-10.png", "cropgangnam4-11.png", "cropgangnam4-12.png", "cropgangnam4-13.png", "cropgangnam4-14.png", "cropgangnam4-15.png", "cropgangnam4-16.png", "cropgangnam4-17.png", "cropgangnam4-18.png", "cropgangnam4-19.png", "cropgangnam4-20.png", "cropgangnam4-21.png", "cropgangnam4-22.png", "cropgangnam4-23.png", "cropgangnam4-24.png", "cropgangnam4-25.png", "cropgangnam4-26.png", "cropgangnam4-27.png", "cropgangnam4-28.png", "cropgangnam4-29.png", "cropgangnam4-30.png", "cropgangnam4-31.png", "cropgangnam4-32.png", "cropgangnam4-33.png", "cropgangnam4-34.png", "cropgangnam4-35.png", "cropgangnam4-36.png", "cropgangnam4-37.png", "cropgangnam4-38.png", "cropgangnam4-39.png", "cropgangnam4-40.png", "cropgangnam4-41.png", "cropgangnam4-42.png", "cropgangnam4-43.png", "cropgangnam4-44.png"]
+  , "ms": 50
+  }
+
 }
