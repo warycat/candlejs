@@ -1,4 +1,4 @@
-/* global $ loadJS Input Loop God Player Camera Plane */
+/* global $ loadJS Input  */
 
 var Candle = function (assets, canvasConfig){
   this._about = 'This project is based on candle.js';
@@ -8,6 +8,7 @@ var Candle = function (assets, canvasConfig){
   this._sounds = {};
   this._assets = assets;
   this.setCanvas(canvasConfig);
+  this._loop = null;
 };
 
 Candle.PPU = 128;
@@ -31,13 +32,14 @@ Candle.prototype = {
 , get ctx(){
     return this._ctx;
   }
-, get loop(){
-    return this._loop;
-  }
 , get input(){
     return this._input;
   }
+, get loop(){
+    return this._loop;
+  }
 };
+
 
 Candle.prototype.setCanvas = function(opt){
   this._canvas = document.getElementById(opt.id || 'display');
@@ -48,7 +50,7 @@ Candle.prototype.setCanvas = function(opt){
   this._canvas.style.left = opt.left;
   this._canvas.style.display = 'block';
   // this._canvas.style.margin = 'auto';
-  this._canvas.style.background = '#f0f0f0';
+  this._canvas.style.background = '#000000';
   this._ctx = this._canvas.getContext('2d');
 };
 
@@ -56,13 +58,9 @@ Candle.prototype.about = function(){
   console.log(this._about);
 };
 
-Candle.prototype.scriptsDidLoad = function(){
-  this._input = new Input();
-  this._loop = new Loop();
-};
 
-
-Candle.prototype.loadScripts = function(callback){
+Candle.prototype.loadScripts = function(onProgress, callback){
+  var self = this;
   var scriptSrcs = $.map(this.assets.scriptFiles, function(file){
     return self.assets.scriptFolder + file;
   });
@@ -72,6 +70,7 @@ Candle.prototype.loadScripts = function(callback){
     if (++progress === scriptSrcs.length) {
       callback();
     }else{
+      onProgress(self.assets.scriptFiles[progress]);
       script = scriptSrcs[progress];
       loadJS(script, internalCallback);
     }
@@ -79,11 +78,13 @@ Candle.prototype.loadScripts = function(callback){
   loadJS(script, internalCallback);
 };
 
-Candle.prototype.loadImages = function(callback) {
+Candle.prototype.loadImages = function(onProgress, callback) {
+  var self = this;
   var imageFolder = this.assets.imageFolder;
   var imageFiles = this.assets.imageFiles;
   var remaining = imageFiles.length;
   var onload = function() {
+    onProgress(self.assets.imageFiles[remaining]);
     remaining--;
     if (remaining === 0) {
       callback();
@@ -98,14 +99,15 @@ Candle.prototype.loadImages = function(callback) {
   }
 };
 
-Candle.prototype.loadJsons = function(callback){
+Candle.prototype.loadJsons = function(onProgress, callback){
+  var self = this;
   var jsonFolder = this.assets.jsonFolder;
   var jsonFiles = this.assets.jsonFiles;
   var remaining = jsonFiles.length;
-  var self = this;
   var onload = function(){
     self._jsons[this.fileName] = JSON.parse(this.responseText);
     remaining--;
+    onProgress(self.assets.jsonFiles[remaining]);
     if(remaining === 0){
       callback();
     }
@@ -121,13 +123,15 @@ Candle.prototype.loadJsons = function(callback){
   }
 };
 
-Candle.prototype.loadSounds = function(callback){
+Candle.prototype.loadSounds = function(onProgress, callback){
+  var self = this;
   var soundFiles = this.assets.soundFiles;
   var soundFolder = this.assets.soundFolder;
   var remaining = soundFiles.length;
   var oncanplaythrough = function(){
     remaining--;
-    console.log(remaining);
+    onProgress(self.assets.soundFiles[remaining]);
+    // console.log(remaining);
     if(remaining === 0){
       callback();
     }
@@ -135,25 +139,31 @@ Candle.prototype.loadSounds = function(callback){
   for (var i = 0; i < soundFiles.length; i++){
     var fileName = soundFiles[i];
     var soundPath = soundFolder + fileName;
-    var audioElm = document.createElement('audio');
+    var audioElm = new Audio();
+    audioElm.addEventListener('canplaythrough', oncanplaythrough, false);
     audioElm.src = soundPath;
-    audioElm.oncanplaythrough = oncanplaythrough;
+    audioElm.load();
     document.body.appendChild(audioElm);
     this._sounds[fileName] = audioElm;
   }
 };
 
 
-Candle.prototype.load = function(callback){
+Candle.prototype.load = function(game, onProgress, onEnd){
   var self = this;
   self.about();
   self.test();
-  self.loadSounds(function(){
-    self.loadScripts(function(){
-      self.loadImages(function(){
-        self.loadJsons(function(){
-          self.scriptsDidLoad();
-          callback.call(self);
+  self.loadScripts(onProgress, function(){
+    console.log('scripts did load');
+    self.loadImages(onProgress, function(){
+      console.log('images did load');
+      self.loadJsons(onProgress, function(){
+        console.log('jsons did load');
+        self.loadSounds(onProgress, function(){
+          console.log('sounds did load');
+          self._input = new Input();
+          self._loop = game.call(self);
+          onEnd();
         });
       });
     });
@@ -173,6 +183,7 @@ Candle.prototype.test = function(){
 
 Candle.prototype.render = function(ws, es){
   var ctx = this.ctx;
+  ctx.save();
   var rs = [];
   for(var i in ws){
     var w = ws[i];
@@ -203,69 +214,7 @@ Candle.prototype.render = function(ws, es){
     var r = rs[k];
     ctx.drawImage(r.texture, r.sx, r.sy, r.sw, r.sh, r.dx, r.dy, r.dw, r.dh);
   }
+  ctx.restore();
 };
 
-
-Candle.prototype.wolf3d = function(){
-  var level = this.jsons['gangnamLevel.json'];
-  var input = new Input();
-  var loop = new Loop();
-  var player = new Player('larry');
-  player.setPosition(12, 12);
-  player.setTheta(Math.PI);
-
-  player.control = function(){
-    var states = input.states;
-    var speed = (states.up - states.down) * 0.005;
-    var omega = (states.right - states.left) * 0.002;
-    this.setOmega(omega);
-    this.setSpeed(speed);
-  };
-
-  var canvas = this.canvas;
-  // var sky = new Sky(canvas, this.images['sky1.jpg']);
-  var plane = new Plane(canvas, level.ceiling, level.floor, this.images['tiles.png'], 64, level.grids);
-
-  var camera = new Camera(canvas, 2, 32, 0.8, plane);
-  var artifactsInfo = {
-    info: this.jsons['artifacts.json']
-  , texture: this.images['artifacts.png']
-  };
-  var botsInfo = {
-  '500': {
-      name: 'Gangnam'
-    , tag: 500
-    , texture: this.images['gangnam.png']
-    , atlas: this.jsons['gangnamAtlas.json']
-    , animations: this.jsons['gangnamAnimations.json']
-    }
-  };
-  var god = new God(canvas, artifactsInfo, botsInfo, 64, level.grids);
-  var bots = god.bots;
-  for(var i = 0; i < bots.length; i++){
-    var bot = bots[i];
-    if(bot.tag === 500){
-      bot.setAnimation('step1');
-    }
-  }
-  this.sounds['gangnam.mp3'].play();
-
-  player.bindActionKey('space', 1000, function(){
-    god.render();
-  });
-
-  loop.start(function(ms){
-    player.control();
-    player.motion(ms);
-    player.onActionKey('space', input.states.space, ms);
-    // sky.render(ms, player.theta, canvas.height / 2);
-    plane.render();
-    camera.castRays(player, plane);
-    god.animate(ms);
-    god.viewFrom(player, 0.8);
-    var ws = camera.render();
-    var es = god.render();
-    this.render(ws, es);
-  }.bind(this));
-};
 

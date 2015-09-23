@@ -17,7 +17,7 @@ Label.prototype = {
 , get font(){
     return this._font;
   }
-, get textAligh(){
+, get textAlign(){
     return this._textAlign;
   }
 , get fillStyle(){

@@ -39,3 +39,10 @@ Player.prototype.onActionKey = function(key, pressed, ms){
   }
 };
 
+Player.prototype.alpha = function(position){
+  var dy = position.y - this.position.y;
+  var dx = position.x - this.position.x;
+  var theta1 = Math.atan2(dy, dx);
+  var theta2 = this.theta;
+  return Math.abs(theta1 - theta2);
+};

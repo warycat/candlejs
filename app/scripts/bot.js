@@ -89,5 +89,4 @@ Bot.prototype.animate = function(ms){
   var file = animation.files[this._animationFrameIndex];
   this.setFile(file);
   this._ms += ms;
-  // console.log(this._animationFrameCount);
 };

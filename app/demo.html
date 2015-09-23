@@ -22,12 +22,12 @@
     <script src="/bower_components/modernizr/modernizr.js"></script>
     <!-- endbuild -->
   </head>
-  <body>
+    <audio id='gangnam.mp3' hidden src='sounds/gangnam.mp3'></audio>
+    <body style='padding:0;'>
     <!--[if lt IE 10]>
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    
-    <div class="container">
+    <div id='web' class="container">
       <div class="header">
         <ul class="nav nav-pills pull-right">
           <li><a href="index.html">Home</a></li>
@@ -37,11 +37,19 @@
         <h3 class="text-muted">candlejs</h3>
       </div>
       <h2>Press SPACE to shoot, Press ← ↑ → ↓ to walk.</h2>
+      <div style='margin:auto; width:800px;'>
+        <img id='iphone' src='images/iphone6plus.png' />
+        <canvas id='web-display'></canvas>
+        <img id='loader' src='images/loader.png' style='position:relative; top:-1100px; left:250px;'></img>
+        <h3 id='message' style='position:relative; top:-1100px; left:250px; color:white;'>Loading...</h3>
+      </div>
     </div>
-    <div style='margin:auto; width:800px;'>
-      <img src='images/iphone6plus.png' />
-      <canvas id='display' style='' />
+    <div id='mobile'>
+      <canvas id='mobile-display'></canvas>
+      <img id='loader' src='images/loader.png' style='position:relative; top:-550px; left:80px;'></img>
+      <h3 id='message' style='position:relative; top:-550px; left:50px; color:white;'>Loading...</h3>
     </div>
+
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
       (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=

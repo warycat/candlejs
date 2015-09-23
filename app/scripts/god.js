@@ -90,7 +90,10 @@ God.prototype.viewFrom = function(player, focus){
 
       var texture = entity.texture;
       var rect = entity.rect();
-
+      var sx = rect.x;
+      var sy = rect.y;
+      var sw = rect.w;
+      var sh = rect.h;
       var dx = p.left;
       var dy = p.top;
       var dw = p.wallHeight;
@@ -99,10 +102,10 @@ God.prototype.viewFrom = function(player, focus){
       this._render[i] = {
         distance: distance
       , texture: texture
-      , sx: rect.x
-      , sy: rect.y
-      , sw: rect.w
-      , sh: rect.h
+      , sx: sx
+      , sy: sy
+      , sw: sw
+      , sh: sh
       , dx: dx
       , dy: dy
       , dw: dw
