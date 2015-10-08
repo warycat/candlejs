@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>main.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="artifact.html">
+                  artifact.js
+                </a>
+              
+                
+                <a class="source" href="bot.html">
+                  bot.js
+                </a>
+              
+                
+                <a class="source" href="camera.html">
+                  camera.js
+                </a>
+              
+                
+                <a class="source" href="candle.html">
+                  candle.js
+                </a>
+              
+                
+                <a class="source" href="entity.html">
+                  entity.js
+                </a>
+              
+                
+                <a class="source" href="god.html">
+                  god.js
+                </a>
+              
+                
+                <a class="source" href="keyboard.html">
+                  keyboard.js
+                </a>
+              
+                
+                <a class="source" href="label.html">
+                  label.js
+                </a>
+              
+                
+                <a class="source" href="level.html">
+                  level.js
+                </a>
+              
+                
+                <a class="source" href="loop.html">
+                  loop.js
+                </a>
+              
+                
+                <a class="source" href="main.html">
+                  main.js
+                </a>
+              
+                
+                <a class="source" href="plane.html">
+                  plane.js
+                </a>
+              
+                
+                <a class="source" href="player.html">
+                  player.js
+                </a>
+              
+                
+                <a class="source" href="sky.html">
+                  sky.js
+                </a>
+              
+                
+                <a class="source" href="sprite.html">
+                  sprite.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>main.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-comment">/* global Candle $ God Player Loop Label Camera Plane Sprite*/</span>
+
+<span class="hljs-keyword">var</span> candle = <span class="hljs-keyword">new</span> Candle();
+
+<span class="hljs-keyword">var</span> assets = {
+  scriptFolder: <span class="hljs-string">'scripts/'</span>
+, scriptFiles: [<span class="hljs-string">'keyboard.js'</span>, <span class="hljs-string">'loop.js'</span>, <span class="hljs-string">'level.js'</span>, <span class="hljs-string">'entity.js'</span>, <span class="hljs-string">'artifact.js'</span>, <span class="hljs-string">'bot.js'</span>, <span class="hljs-string">'god.js'</span>, <span class="hljs-string">'sky.js'</span>, <span class="hljs-string">'plane.js'</span>, <span class="hljs-string">'camera.js'</span>, <span class="hljs-string">'player.js'</span>, <span class="hljs-string">'label.js'</span>, <span class="hljs-string">'sprite.js'</span>]
+, soundFolder: <span class="hljs-string">'sounds/'</span>
+, soundFiles: [<span class="hljs-string">'gangnam.mp3'</span>, <span class="hljs-string">'shotgun-reload.mp3'</span>, <span class="hljs-string">'shotgun-fire.mp3'</span>]
+, jsonFolder: <span class="hljs-string">'jsons/'</span>
+, jsonFiles: [<span class="hljs-string">'levels.json'</span>, <span class="hljs-string">'Wolf08.json'</span>, <span class="hljs-string">'artifacts.json'</span>, <span class="hljs-string">'gangnamAtlas.json'</span>, <span class="hljs-string">'gangnamLevel.json'</span>, <span class="hljs-string">'gangnamAnimations.json'</span>]
+, imageFolder: <span class="hljs-string">'images/'</span>
+, imageFiles: [<span class="hljs-string">'sky1.jpg'</span>, <span class="hljs-string">'wall_texture.jpg'</span>, <span class="hljs-string">'tiles.png'</span>, <span class="hljs-string">'artifacts.png'</span>, <span class="hljs-string">'gangnam.png'</span>, <span class="hljs-string">'pistol.png'</span>]
+};
+
+candle.setAssets(assets);
+
+<span class="hljs-keyword">var</span> canvasConfig;
+
+<span class="hljs-keyword">if</span>(candle.mobileAndTabletcheck()){
+  canvasConfig = {
+    id: <span class="hljs-string">'mobile-display'</span>
+  , width: $(<span class="hljs-built_in">window</span>).width()
+  , height: $(<span class="hljs-built_in">window</span>).height()
+  };
+  $(<span class="hljs-string">'#web'</span>).remove();
+}<span class="hljs-keyword">else</span>{
+  canvasConfig = {
+    id: <span class="hljs-string">'web-display'</span>
+  , width: <span class="hljs-number">290</span>
+  , height: <span class="hljs-number">506</span>
+  , position: <span class="hljs-string">'relative'</span>
+  , top: <span class="hljs-string">'-622px'</span>
+  , left: <span class="hljs-string">'224px'</span>
+  };
+  $(<span class="hljs-string">'#mobile'</span>).remove();
+}
+
+candle.setCanvas(canvasConfig);
+
+
+<span class="hljs-keyword">var</span> gangnam = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+  <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
+  <span class="hljs-keyword">var</span> canvas = self.canvas;
+  <span class="hljs-keyword">var</span> keyboard = self.keyboard;
+
+
+  self.scoreLable = <span class="hljs-keyword">new</span> Label(canvas, canvas.width / <span class="hljs-number">2</span>, canvas.height / <span class="hljs-number">10</span>, <span class="hljs-string">'20px Arial'</span>, <span class="hljs-string">'center'</span>, <span class="hljs-string">'white'</span>);
+  self.score = <span class="hljs-number">0</span>;
+  self.scoreText = <span class="hljs-string">'Score: '</span>;
+  <span class="hljs-keyword">var</span> pistol = <span class="hljs-keyword">new</span> Sprite(canvas, <span class="hljs-keyword">this</span>.images[<span class="hljs-string">'pistol.png'</span>], <span class="hljs-number">5</span>, <span class="hljs-number">50</span>, <span class="hljs-number">128</span>, <span class="hljs-number">128</span>, canvas.width / <span class="hljs-number">2</span>, canvas.height, <span class="hljs-number">0.5</span>, <span class="hljs-number">1</span>);
+  <span class="hljs-keyword">var</span> level = <span class="hljs-keyword">this</span>.jsons[<span class="hljs-string">'gangnamLevel.json'</span>];
+  <span class="hljs-keyword">var</span> plane = <span class="hljs-keyword">new</span> Plane(canvas, level.ceiling, level.floor, <span class="hljs-keyword">this</span>.images[<span class="hljs-string">'tiles.png'</span>], <span class="hljs-number">64</span>, level.grids);
+  <span class="hljs-keyword">var</span> camera = <span class="hljs-keyword">new</span> Camera(canvas, <span class="hljs-number">4</span>, <span class="hljs-number">25</span>, <span class="hljs-number">0.8</span>, plane);
+
+
+  <span class="hljs-keyword">var</span> artifactsInfo = {
+    info: <span class="hljs-keyword">this</span>.jsons[<span class="hljs-string">'artifacts.json'</span>]
+  , texture: <span class="hljs-keyword">this</span>.images[<span class="hljs-string">'artifacts.png'</span>]
+  };
+
+  <span class="hljs-keyword">var</span> botsInfo = {
+  <span class="hljs-string">'500'</span>: {
+      name: <span class="hljs-string">'Gangnam'</span>
+    , tag: <span class="hljs-number">500</span>
+    , texture: <span class="hljs-keyword">this</span>.images[<span class="hljs-string">'gangnam.png'</span>]
+    , atlas: <span class="hljs-keyword">this</span>.jsons[<span class="hljs-string">'gangnamAtlas.json'</span>]
+    , animations: <span class="hljs-keyword">this</span>.jsons[<span class="hljs-string">'gangnamAnimations.json'</span>]
+    }
+  };
+  <span class="hljs-keyword">var</span> god = <span class="hljs-keyword">new</span> God(canvas, artifactsInfo, botsInfo, <span class="hljs-number">64</span>, level.grids);
+
+  <span class="hljs-keyword">var</span> bots = god.bots;
+
+  <span class="hljs-keyword">var</span> dancers = [];
+
+  <span class="hljs-keyword">var</span> dance = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ms</span>)</span>{
+    <span class="hljs-keyword">switch</span>(<span class="hljs-keyword">this</span>.state){
+      <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>:
+        <span class="hljs-keyword">this</span>.damaged = <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">this</span>.state = <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">this</span>.setAnimation(<span class="hljs-string">'step1'</span>);
+        <span class="hljs-keyword">this</span>.setSpeed(<span class="hljs-number">0.003</span>);
+        <span class="hljs-keyword">this</span>.ms = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">break</span>;
+      <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:
+        <span class="hljs-keyword">this</span>.damaged = <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.ms &gt; <span class="hljs-number">5000</span>){
+          <span class="hljs-keyword">this</span>.ms = <span class="hljs-number">0</span>;
+          <span class="hljs-keyword">this</span>.state = <span class="hljs-number">2</span>;
+          <span class="hljs-keyword">this</span>.setAnimation(<span class="hljs-string">'step2'</span>);
+          <span class="hljs-keyword">this</span>.setSpeed(-<span class="hljs-number">0.003</span>);
+        }
+        <span class="hljs-keyword">this</span>.ms += ms;
+        <span class="hljs-keyword">break</span>;
+      <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:
+        <span class="hljs-keyword">this</span>.damaged = <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.ms &gt; <span class="hljs-number">5000</span>){
+          <span class="hljs-keyword">this</span>.ms = <span class="hljs-number">0</span>;
+          <span class="hljs-keyword">this</span>.state = <span class="hljs-number">3</span>;
+          <span class="hljs-keyword">this</span>.setAnimation(<span class="hljs-string">'step3'</span>);
+          <span class="hljs-keyword">this</span>.setSpeed(<span class="hljs-number">0</span>);
+        }
+        <span class="hljs-keyword">this</span>.ms += ms;
+        <span class="hljs-keyword">break</span>;
+      <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:
+        <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.damaged){
+          self.score += <span class="hljs-built_in">Math</span>.ceil(<span class="hljs-keyword">this</span>.duration);
+          <span class="hljs-keyword">this</span>.duration *= <span class="hljs-number">0.8</span>;
+          <span class="hljs-keyword">this</span>.state = <span class="hljs-number">4</span>;
+          <span class="hljs-keyword">this</span>.setAnimation(<span class="hljs-string">'step4'</span>);
+          <span class="hljs-keyword">this</span>.setSpeed(<span class="hljs-number">0</span>);
+          <span class="hljs-keyword">break</span>;
+        }
+        <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.ms &gt; <span class="hljs-keyword">this</span>.duration){
+          <span class="hljs-keyword">this</span>.ms = <span class="hljs-number">0</span>;
+          <span class="hljs-keyword">this</span>.state = <span class="hljs-number">1</span>;
+          <span class="hljs-keyword">this</span>.setAnimation(<span class="hljs-string">'step1'</span>);
+          <span class="hljs-keyword">this</span>.setSpeed(<span class="hljs-number">0.003</span>);
+        }
+        <span class="hljs-keyword">this</span>.ms += ms;
+        <span class="hljs-keyword">break</span>;
+      <span class="hljs-keyword">case</span> <span class="hljs-number">4</span>:
+        <span class="hljs-keyword">this</span>.damaged = <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.ms &gt; <span class="hljs-number">2000</span>){
+          <span class="hljs-keyword">this</span>.ms = <span class="hljs-number">0</span>;
+          <span class="hljs-keyword">this</span>.state = <span class="hljs-number">3</span>;
+          <span class="hljs-keyword">this</span>.setAnimation(<span class="hljs-string">'step3'</span>);
+          <span class="hljs-keyword">this</span>.setSpeed(<span class="hljs-number">0</span>);
+        }
+        <span class="hljs-keyword">this</span>.ms += ms;
+        <span class="hljs-keyword">break</span>;
+    }
+  };
+
+  <span class="hljs-keyword">var</span> damage = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+    <span class="hljs-keyword">this</span>.damaged = <span class="hljs-literal">true</span>;
+  };
+
+  <span class="hljs-keyword">var</span> i;
+  <span class="hljs-keyword">for</span>(i = <span class="hljs-number">0</span>; i &lt; bots.length; i++){
+    <span class="hljs-keyword">var</span> bot = bots[i];
+    <span class="hljs-keyword">if</span>(bot.tag === <span class="hljs-number">500</span>){
+      bot.state = <span class="hljs-number">0</span>;
+      bot.dance = dance;
+      bot.duration = <span class="hljs-number">10000</span>;
+      bot.damage = damage;
+      dancers.push(bot);
+    }
+  }
+
+  <span class="hljs-keyword">var</span> player = <span class="hljs-keyword">new</span> Player(<span class="hljs-string">'larry'</span>);
+  player.setPosition(<span class="hljs-number">12</span>, <span class="hljs-number">12</span>);
+  player.setTheta(<span class="hljs-built_in">Math</span>.PI);
+
+  player.control = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+    <span class="hljs-keyword">var</span> touchStatus = candle.touchStatus;
+    <span class="hljs-keyword">var</span> states = keyboard.states;
+    <span class="hljs-keyword">var</span> speed = (states.up - states.down + touchStatus.UP - touchStatus.DOWN) * <span class="hljs-number">0.005</span>;
+    <span class="hljs-keyword">var</span> omega = (states.right - states.left + touchStatus.RIGHT - touchStatus.LEFT) * <span class="hljs-number">0.002</span>;
+    <span class="hljs-keyword">this</span>.setOmega(omega);
+    <span class="hljs-keyword">this</span>.setSpeed(speed);
+  };
+
+  player.fire = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+    <span class="hljs-keyword">for</span>(i = <span class="hljs-number">0</span>; i &lt; bots.length; i++){
+      bot = bots[i];
+      <span class="hljs-keyword">if</span>(bot.tag === <span class="hljs-number">500</span>){
+        <span class="hljs-keyword">if</span> (player.alpha(bot.position) &lt; <span class="hljs-number">0.1</span>){
+          bot.damage();
+        }
+      }
+    }
+    pistol.animateOnce();
+    self.sounds[<span class="hljs-string">'gangnam.mp3'</span>].play();
+    self.sounds[<span class="hljs-string">'shotgun-fire.mp3'</span>].play();
+    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+      self.sounds[<span class="hljs-string">'shotgun-reload.mp3'</span>].play();
+    }, <span class="hljs-number">1000</span>);
+  };
+
+  player.bindActionKey(<span class="hljs-string">'space'</span>, <span class="hljs-number">1000</span>, player.fire);
+  candle.bindTapAction(player.fire);
+
+  <span class="hljs-keyword">var</span> loop = <span class="hljs-keyword">new</span> Loop(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ms</span>)</span>{
+    player.control();
+    player.motion(ms);
+    player.onActionKey(<span class="hljs-string">'space'</span>, keyboard.states.space, ms);
+    <span class="hljs-keyword">for</span>(i = <span class="hljs-number">0</span>; i &lt; dancers.length; i++){
+      <span class="hljs-keyword">var</span> dancer = dancers[i];
+      dancer.dance(ms);
+      dancer.move(ms);
+    }
+    plane.render();
+    camera.castRays(player, plane);
+    god.animate(ms);
+    god.viewFrom(player, <span class="hljs-number">0.8</span>);
+    <span class="hljs-keyword">var</span> ws = camera.render();
+    <span class="hljs-keyword">var</span> es = god.render();
+    self.render(ws, es);
+    self.scoreLable.render(self.scoreText + self.score);
+    pistol.render(ms);
+  });
+
+  <span class="hljs-keyword">return</span> loop;
+};
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onProgress</span>(<span class="hljs-params">message</span>)</span>{
+  $(<span class="hljs-string">'#message'</span>).text(<span class="hljs-string">'Loading: '</span> + message);
+}
+
+candle.load(gangnam, onProgress, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+  <span class="hljs-keyword">if</span>(candle.mobileAndTabletcheck()){
+    $(<span class="hljs-string">'#message'</span>).text(<span class="hljs-string">'Candle.js Ready. Touch to Fire'</span>);
+    <span class="hljs-built_in">document</span>.addEventListener(<span class="hljs-string">'touchend'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+      $(<span class="hljs-string">'#message'</span>).remove();
+      $(<span class="hljs-string">'#loader'</span>).remove();
+      candle.loop.start();
+    });
+  }<span class="hljs-keyword">else</span>{
+    $(<span class="hljs-string">'#message'</span>).text(<span class="hljs-string">'Candle.js Ready. SPACE to Fire'</span>);
+    $(<span class="hljs-string">'#loader'</span>).click(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+      $(<span class="hljs-string">'#message'</span>).remove();
+      $(<span class="hljs-string">'#loader'</span>).remove();
+      candle.loop.start();
+    });
+  }
+});</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
