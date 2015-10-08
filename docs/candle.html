@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>candle.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="artifact.html">
+                  artifact.js
+                </a>
+              
+                
+                <a class="source" href="bot.html">
+                  bot.js
+                </a>
+              
+                
+                <a class="source" href="camera.html">
+                  camera.js
+                </a>
+              
+                
+                <a class="source" href="candle.html">
+                  candle.js
+                </a>
+              
+                
+                <a class="source" href="entity.html">
+                  entity.js
+                </a>
+              
+                
+                <a class="source" href="god.html">
+                  god.js
+                </a>
+              
+                
+                <a class="source" href="keyboard.html">
+                  keyboard.js
+                </a>
+              
+                
+                <a class="source" href="label.html">
+                  label.js
+                </a>
+              
+                
+                <a class="source" href="level.html">
+                  level.js
+                </a>
+              
+                
+                <a class="source" href="loop.html">
+                  loop.js
+                </a>
+              
+                
+                <a class="source" href="main.html">
+                  main.js
+                </a>
+              
+                
+                <a class="source" href="plane.html">
+                  plane.js
+                </a>
+              
+                
+                <a class="source" href="player.html">
+                  player.js
+                </a>
+              
+                
+                <a class="source" href="sky.html">
+                  sky.js
+                </a>
+              
+                
+                <a class="source" href="sprite.html">
+                  sprite.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>candle.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-comment">/* global $ Keyboard */</span>
+
+<span class="hljs-keyword">var</span> Candle = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>)</span>{
+  <span class="hljs-keyword">this</span>._about = <span class="hljs-string">'This project is based on candle.js'</span>;
+  <span class="hljs-keyword">this</span>._entities = [];
+  <span class="hljs-keyword">this</span>._images = {};
+  <span class="hljs-keyword">this</span>._jsons = {};
+  <span class="hljs-keyword">this</span>._sounds = {};
+  <span class="hljs-keyword">this</span>._loop = <span class="hljs-literal">null</span>;
+  <span class="hljs-keyword">this</span>._startX = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">this</span>._startY = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">this</span>._endX = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">this</span>._endY = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">this</span>._touchKey = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">this</span>._touchCount = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">this</span>._touchStatus = {UP: <span class="hljs-number">0</span>, DOWN: <span class="hljs-number">0</span>, LEFT: <span class="hljs-number">0</span>, RIGHT: <span class="hljs-number">0</span>};
+  <span class="hljs-built_in">document</span>.ontouchstart = <span class="hljs-keyword">this</span>.touchstart.bind(<span class="hljs-keyword">this</span>);
+  <span class="hljs-built_in">document</span>.ontouchmove = <span class="hljs-keyword">this</span>.touchmove.bind(<span class="hljs-keyword">this</span>);
+  <span class="hljs-built_in">document</span>.ontouchend = <span class="hljs-keyword">this</span>.touchend.bind(<span class="hljs-keyword">this</span>);
+  <span class="hljs-built_in">document</span>.ontouchcancel = <span class="hljs-keyword">this</span>.touchcancel.bind(<span class="hljs-keyword">this</span>);
+  <span class="hljs-keyword">this</span>._onTap = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{};
+};
+
+Candle.PPU = <span class="hljs-number">128</span>;
+
+Candle.prototype = {
+  get assets(){
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._assets;
+  }
+, get canvas(){
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._canvas;
+  }
+, get images(){
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._images;
+  }
+, get jsons(){
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._jsons;
+  }
+, get sounds(){
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._sounds;
+  }
+, get ctx(){
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._ctx;
+  }
+, get input(){
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._input;
+  }
+, get loop(){
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._loop;
+  }
+, get deltaX(){
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._endX - <span class="hljs-keyword">this</span>._startX;
+  }
+, get deltaY(){
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._endY - <span class="hljs-keyword">this</span>._startY;
+  }
+, get touchSquare(){
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.deltaX * <span class="hljs-keyword">this</span>.deltaX + <span class="hljs-keyword">this</span>.deltaY * <span class="hljs-keyword">this</span>.deltaY;
+  }
+, get keyboard(){
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._keyboard;
+  }
+, get touchStatus(){
+    <span class="hljs-keyword">switch</span>(<span class="hljs-keyword">this</span>.touchKey()){
+    <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>:
+      <span class="hljs-keyword">this</span>._touchStatus.UP = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">this</span>._touchStatus.DOWN = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">this</span>._touchStatus.LEFT = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">this</span>._touchStatus.RIGHT = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:
+      <span class="hljs-keyword">this</span>._touchStatus.UP = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">this</span>._touchStatus.DOWN = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">this</span>._touchStatus.LEFT = <span class="hljs-number">1</span>;
+      <span class="hljs-keyword">this</span>._touchStatus.RIGHT = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:
+      <span class="hljs-keyword">this</span>._touchStatus.UP = <span class="hljs-number">1</span>;
+      <span class="hljs-keyword">this</span>._touchStatus.DOWN = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">this</span>._touchStatus.LEFT = <span class="hljs-number">1</span>;
+      <span class="hljs-keyword">this</span>._touchStatus.RIGHT = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:
+      <span class="hljs-keyword">this</span>._touchStatus.UP = <span class="hljs-number">1</span>;
+      <span class="hljs-keyword">this</span>._touchStatus.DOWN = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">this</span>._touchStatus.LEFT = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">this</span>._touchStatus.RIGHT = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-number">4</span>:
+      <span class="hljs-keyword">this</span>._touchStatus.UP = <span class="hljs-number">1</span>;
+      <span class="hljs-keyword">this</span>._touchStatus.DOWN = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">this</span>._touchStatus.LEFT = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">this</span>._touchStatus.RIGHT = <span class="hljs-number">1</span>;
+      <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-number">5</span>:
+      <span class="hljs-keyword">this</span>._touchStatus.UP = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">this</span>._touchStatus.DOWN = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">this</span>._touchStatus.LEFT = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">this</span>._touchStatus.RIGHT = <span class="hljs-number">1</span>;
+      <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-number">6</span>:
+      <span class="hljs-keyword">this</span>._touchStatus.UP = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">this</span>._touchStatus.DOWN = <span class="hljs-number">1</span>;
+      <span class="hljs-keyword">this</span>._touchStatus.LEFT = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">this</span>._touchStatus.RIGHT = <span class="hljs-number">1</span>;
+      <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-number">7</span>:
+      <span class="hljs-keyword">this</span>._touchStatus.UP = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">this</span>._touchStatus.DOWN = <span class="hljs-number">1</span>;
+      <span class="hljs-keyword">this</span>._touchStatus.LEFT = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">this</span>._touchStatus.RIGHT = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-number">8</span>:
+      <span class="hljs-keyword">this</span>._touchStatus.UP = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">this</span>._touchStatus.DOWN = <span class="hljs-number">1</span>;
+      <span class="hljs-keyword">this</span>._touchStatus.LEFT = <span class="hljs-number">1</span>;
+      <span class="hljs-keyword">this</span>._touchStatus.RIGHT = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">break</span>;
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._touchStatus;
+  }
+};
+
+Candle.prototype.setAssets = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">assets</span>)</span>{
+  <span class="hljs-keyword">this</span>._assets = assets;
+};
+
+
+Candle.prototype.setCanvas = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">opt</span>)</span>{
+  <span class="hljs-keyword">this</span>._canvas = <span class="hljs-built_in">document</span>.getElementById(opt.id || <span class="hljs-string">'display'</span>);
+  <span class="hljs-keyword">this</span>._canvas.width = opt.width || <span class="hljs-number">640</span>;
+  <span class="hljs-keyword">this</span>._canvas.height = opt.height || <span class="hljs-number">480</span>;
+  <span class="hljs-keyword">this</span>._canvas.style.position = opt.position;
+  <span class="hljs-keyword">this</span>._canvas.style.top = opt.top;
+  <span class="hljs-keyword">this</span>._canvas.style.left = opt.left;
+  <span class="hljs-keyword">this</span>._canvas.style.display = <span class="hljs-string">'block'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>this._canvas.style.margin = ‘auto’;</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">this</span>._canvas.style.background = <span class="hljs-string">'#000000'</span>;
+  <span class="hljs-keyword">this</span>._ctx = <span class="hljs-keyword">this</span>._canvas.getContext(<span class="hljs-string">'2d'</span>);
+};
+
+Candle.prototype.about = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>._about);
+};
+
+
+Candle.prototype.loadScripts = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">onProgress, callback</span>)</span>{
+  <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
+  <span class="hljs-keyword">var</span> scriptSrcs = $.map(<span class="hljs-keyword">this</span>.assets.scriptFiles, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">file</span>)</span>{
+    <span class="hljs-keyword">return</span> self.assets.scriptFolder + file;
+  });
+  <span class="hljs-keyword">var</span> progress = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">var</span> script = scriptSrcs[progress];
+  <span class="hljs-keyword">var</span> internalCallback = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">if</span> (++progress === scriptSrcs.length) {
+      callback();
+    }<span class="hljs-keyword">else</span>{
+      onProgress(self.assets.scriptFiles[progress]);
+      script = scriptSrcs[progress];
+      self.loadJS(script, internalCallback);
+    }
+  };
+  self.loadJS(script, internalCallback);
+};
+
+Candle.prototype.loadImages = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">onProgress, callback</span>) </span>{
+  <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
+  <span class="hljs-keyword">var</span> imageFolder = <span class="hljs-keyword">this</span>.assets.imageFolder;
+  <span class="hljs-keyword">var</span> imageFiles = <span class="hljs-keyword">this</span>.assets.imageFiles;
+  <span class="hljs-keyword">var</span> remaining = imageFiles.length;
+  <span class="hljs-keyword">var</span> onload = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    remaining--;
+    onProgress(self.assets.imageFiles[remaining]);
+    <span class="hljs-keyword">if</span> (remaining === <span class="hljs-number">0</span>) {
+      callback();
+    }
+  };
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; imageFiles.length; i++) {
+    <span class="hljs-keyword">var</span> img = <span class="hljs-keyword">new</span> Image();
+    <span class="hljs-keyword">var</span> file = imageFiles[i];
+    <span class="hljs-keyword">this</span>._images[file] = img;
+    img.onload = onload;
+    img.src = imageFolder + file;
+  }
+};
+
+Candle.prototype.loadJsons = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">onProgress, callback</span>)</span>{
+  <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
+  <span class="hljs-keyword">var</span> jsonFolder = <span class="hljs-keyword">this</span>.assets.jsonFolder;
+  <span class="hljs-keyword">var</span> jsonFiles = <span class="hljs-keyword">this</span>.assets.jsonFiles;
+  <span class="hljs-keyword">var</span> remaining = jsonFiles.length;
+  <span class="hljs-keyword">var</span> onload = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+    self._jsons[<span class="hljs-keyword">this</span>.fileName] = <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-keyword">this</span>.responseText);
+    remaining--;
+    onProgress(self.assets.jsonFiles[remaining]);
+    <span class="hljs-keyword">if</span>(remaining === <span class="hljs-number">0</span>){
+      callback();
+    }
+  };
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; jsonFiles.length; i++) {
+    <span class="hljs-keyword">var</span> fileName = jsonFiles[i];
+    <span class="hljs-keyword">var</span> jsonPath = jsonFolder + fileName;
+    <span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
+    xhr.fileName = fileName;
+    xhr.onload = onload;
+    xhr.open(<span class="hljs-string">'GET'</span>, jsonPath);
+    xhr.send();
+  }
+};
+
+Candle.prototype.loadSounds = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">onProgress, callback</span>)</span>{
+  <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
+  <span class="hljs-keyword">var</span> soundFiles = <span class="hljs-keyword">this</span>.assets.soundFiles;
+  <span class="hljs-keyword">var</span> soundFolder = <span class="hljs-keyword">this</span>.assets.soundFolder;
+  <span class="hljs-keyword">var</span> remaining = soundFiles.length;
+  <span class="hljs-keyword">var</span> oncanplaythrough = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+    remaining--;
+    onProgress(self.assets.soundFiles[remaining]);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>console.log(remaining);</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span>(remaining === <span class="hljs-number">0</span>){
+      callback();
+    }
+  };
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; soundFiles.length; i++){
+    <span class="hljs-keyword">var</span> fileName = soundFiles[i];
+    <span class="hljs-keyword">var</span> soundPath = soundFolder + fileName;
+    <span class="hljs-keyword">var</span> audioElm = <span class="hljs-keyword">new</span> Audio();
+    audioElm.addEventListener(<span class="hljs-string">'canplaythrough'</span>, oncanplaythrough, <span class="hljs-literal">false</span>);
+    audioElm.src = soundPath;
+    audioElm.load();
+    <span class="hljs-built_in">document</span>.body.appendChild(audioElm);
+    <span class="hljs-keyword">this</span>._sounds[fileName] = audioElm;
+  }
+};
+
+
+Candle.prototype.load = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">game, onProgress, onEnd</span>)</span>{
+  <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
+  self.about();
+  self.test();
+  self.loadScripts(onProgress, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'scripts did load'</span>);
+    self.loadImages(onProgress, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'images did load'</span>);
+      self.loadJsons(onProgress, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'jsons did load'</span>);
+        self.loadSounds(onProgress, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+          <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'sounds did load'</span>);
+          self._keyboard = <span class="hljs-keyword">new</span> Keyboard();
+          self._loop = game.call(self);
+          onEnd();
+        });
+      });
+    });
+  });
+};
+
+Candle.prototype.test = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.assets.scriptFolder === <span class="hljs-literal">undefined</span> ) { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'scriptFolder: '</span>, <span class="hljs-keyword">this</span>.assets.scriptFolder); }
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.assets.scriptFiles === <span class="hljs-literal">undefined</span> ) { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'scriptFiles: '</span>, <span class="hljs-keyword">this</span>.assets.scriptFiles); }
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.assets.imageFolder === <span class="hljs-literal">undefined</span> ) { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'imageFolder: '</span>, <span class="hljs-keyword">this</span>.assets.imageFolder); }
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.assets.imageFiles === <span class="hljs-literal">undefined</span> ) { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'imageFiles: '</span>, <span class="hljs-keyword">this</span>.assets.imageFiles); }
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.assets.jsonFolder === <span class="hljs-literal">undefined</span> ) { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'jsonFolder: '</span>, <span class="hljs-keyword">this</span>.assets.jsonFolder); }
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.assets.jsonFiles === <span class="hljs-literal">undefined</span> ) { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'jsonFiles: '</span>, <span class="hljs-keyword">this</span>.assets.jsonFiles); }
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.assets.soundFolder === <span class="hljs-literal">undefined</span> ) { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'soundFolder: '</span>, <span class="hljs-keyword">this</span>.assets.soundFolder); }
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.assets.soundFiles === <span class="hljs-literal">undefined</span> ) { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'soundFiles: '</span>, <span class="hljs-keyword">this</span>.assets.soundFiles); }
+};
+
+Candle.prototype.render = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ws, es</span>)</span>{
+  <span class="hljs-keyword">var</span> ctx = <span class="hljs-keyword">this</span>.ctx;
+  ctx.save();
+  <span class="hljs-keyword">var</span> rs = [];
+  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i <span class="hljs-keyword">in</span> ws){
+    <span class="hljs-keyword">var</span> w = ws[i];
+    <span class="hljs-keyword">if</span>(w){
+      rs.push(w);
+    }
+  }
+  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> j <span class="hljs-keyword">in</span> es){
+    <span class="hljs-keyword">var</span> e = es[j];
+    <span class="hljs-keyword">if</span>(e){
+      rs.push(e);
+    }
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">compare</span>(<span class="hljs-params">a, b</span>)</span>{
+    <span class="hljs-keyword">if</span>(a.distance &lt; b.distance) {
+      <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    }
+    <span class="hljs-keyword">if</span>(a.distance &gt; b.distance) {
+      <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+  }
+
+  rs.sort(compare);
+
+  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> k <span class="hljs-keyword">in</span> rs){
+    <span class="hljs-keyword">var</span> r = rs[k];
+    ctx.drawImage(r.texture, r.sx, r.sy, r.sw, r.sh, r.dx, r.dy, r.dw, r.dh);
+  }
+  ctx.restore();
+};
+
+<span class="hljs-comment">/*eslint-disable */</span>
+
+Candle.prototype.mobileAndTabletcheck = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> check = <span class="hljs-literal">false</span>;
+  (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a</span>)</span>{<span class="hljs-keyword">if</span>(<span class="hljs-regexp">/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i</span>.test(a)||<span class="hljs-regexp">/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i</span>.test(a.substr(<span class="hljs-number">0</span>,<span class="hljs-number">4</span>)))check = <span class="hljs-literal">true</span>})(navigator.userAgent||navigator.vendor||<span class="hljs-built_in">window</span>.opera);
+  <span class="hljs-keyword">return</span> check;
+};
+
+<span class="hljs-comment">/*eslint-enable */</span>
+
+Candle.prototype.loadJS = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">file, callback</span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>DOM: Create the script element</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> jsElm = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'script'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>set the type attribute</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  jsElm.type = <span class="hljs-string">'application/javascript'</span>;
+  jsElm.onload = callback;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>make the script element load file</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  jsElm.src = file;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>finally insert the element to the body element in order to load the script</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-built_in">document</span>.body.appendChild(jsElm);
+};
+
+
+Candle.prototype.touchstart = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>)</span>{
+  e.preventDefault();
+  <span class="hljs-keyword">this</span>._touchCount++;
+  <span class="hljs-keyword">this</span>._startX = e.touches[<span class="hljs-number">0</span>].clientX;
+  <span class="hljs-keyword">this</span>._startY = e.touches[<span class="hljs-number">0</span>].clientY;
+  <span class="hljs-keyword">this</span>._endX = e.touches[<span class="hljs-number">0</span>].clientX;
+  <span class="hljs-keyword">this</span>._endY = e.touches[<span class="hljs-number">0</span>].clientY;
+};
+
+Candle.prototype.touchmove = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>)</span>{
+  e.preventDefault();
+  <span class="hljs-keyword">this</span>._endX = e.touches[<span class="hljs-number">0</span>].clientX;
+  <span class="hljs-keyword">this</span>._endY = e.touches[<span class="hljs-number">0</span>].clientY;
+};
+
+Candle.prototype.touchend = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>)</span>{
+  e.preventDefault();
+  <span class="hljs-keyword">this</span>._touchCount--;
+  <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>._touchCount === <span class="hljs-number">0</span>) {
+    <span class="hljs-keyword">this</span>.onTap();
+  }
+  <span class="hljs-keyword">this</span>._startX = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">this</span>._startY = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">this</span>._endX = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">this</span>._endY = <span class="hljs-number">0</span>;
+};
+
+Candle.prototype.touchcancel = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>)</span>{
+  e.preventDefault();
+  <span class="hljs-keyword">this</span>._touchCount--;
+  <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>._touchCount === <span class="hljs-number">0</span>) {
+    <span class="hljs-keyword">this</span>.onTap();
+  }
+  <span class="hljs-keyword">this</span>._startX = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">this</span>._startY = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">this</span>._endX = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">this</span>._endY = <span class="hljs-number">0</span>;
+};
+
+Candle.prototype.touchKey = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+  <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>._touchCount === <span class="hljs-number">0</span> || <span class="hljs-keyword">this</span>.touchSquare &lt; <span class="hljs-number">100</span>){
+    <span class="hljs-keyword">this</span>._touchKey = <span class="hljs-number">0</span>;
+  }<span class="hljs-keyword">else</span>{
+    <span class="hljs-keyword">this</span>._touchKey = <span class="hljs-built_in">Math</span>.ceil(<span class="hljs-built_in">Math</span>.atan2(<span class="hljs-keyword">this</span>.deltaY, <span class="hljs-keyword">this</span>.deltaX) / <span class="hljs-built_in">Math</span>.PI * <span class="hljs-number">4</span> + <span class="hljs-number">3.5</span>) % <span class="hljs-number">8</span> + <span class="hljs-number">1</span>;
+  }
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._touchKey;
+};
+
+Candle.prototype.onTap = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+  <span class="hljs-keyword">this</span>._onTap.call(<span class="hljs-keyword">this</span>);
+};
+
+Candle.prototype.bindTapAction = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">fn</span>)</span>{
+  <span class="hljs-keyword">this</span>._onTap = fn;
+};</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

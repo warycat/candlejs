@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>plane.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="artifact.html">
+                  artifact.js
+                </a>
+              
+                
+                <a class="source" href="bot.html">
+                  bot.js
+                </a>
+              
+                
+                <a class="source" href="camera.html">
+                  camera.js
+                </a>
+              
+                
+                <a class="source" href="candle.html">
+                  candle.js
+                </a>
+              
+                
+                <a class="source" href="entity.html">
+                  entity.js
+                </a>
+              
+                
+                <a class="source" href="god.html">
+                  god.js
+                </a>
+              
+                
+                <a class="source" href="keyboard.html">
+                  keyboard.js
+                </a>
+              
+                
+                <a class="source" href="label.html">
+                  label.js
+                </a>
+              
+                
+                <a class="source" href="level.html">
+                  level.js
+                </a>
+              
+                
+                <a class="source" href="loop.html">
+                  loop.js
+                </a>
+              
+                
+                <a class="source" href="main.html">
+                  main.js
+                </a>
+              
+                
+                <a class="source" href="plane.html">
+                  plane.js
+                </a>
+              
+                
+                <a class="source" href="player.html">
+                  player.js
+                </a>
+              
+                
+                <a class="source" href="sky.html">
+                  sky.js
+                </a>
+              
+                
+                <a class="source" href="sprite.html">
+                  sprite.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>plane.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> Plane = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">canvas, ceiling, floor, image, size, grids</span>)</span>{
+  <span class="hljs-keyword">this</span>._canvas = canvas;
+  <span class="hljs-keyword">this</span>._ctx = canvas.getContext(<span class="hljs-string">'2d'</span>);
+  <span class="hljs-keyword">this</span>._width = canvas.width;
+  <span class="hljs-keyword">this</span>._height = canvas.height;
+  <span class="hljs-keyword">this</span>._height2 = <span class="hljs-keyword">this</span>._height / <span class="hljs-number">2</span>;
+  <span class="hljs-keyword">this</span>._size = size;
+  <span class="hljs-keyword">this</span>._size2 = size * size;
+  <span class="hljs-keyword">this</span>._image = image;
+  <span class="hljs-keyword">this</span>._walls = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint8Array</span>(size * size);
+  <span class="hljs-keyword">this</span>._ceiling = ceiling;
+  <span class="hljs-keyword">this</span>._floor = floor;
+  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; size; i++){
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> j = <span class="hljs-number">0</span>; j &lt; size; j++){
+      <span class="hljs-keyword">if</span>(grids[i][j] &lt; <span class="hljs-number">0</span>){
+        <span class="hljs-keyword">this</span>.setWall(i, j, -grids[i][j]);
+      }
+    }
+  }
+  <span class="hljs-keyword">this</span>.print();
+};
+
+Plane.prototype = {
+  get ctx(){
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._ctx;
+  }
+, get canvas(){
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._canvas;
+  }
+, get width(){
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._width;
+  }
+, get height(){
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._height;
+  }
+, get height2(){
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._height2;
+  }
+, get size(){
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._size;
+  }
+, get size2(){
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._size2;
+  }
+, get image(){
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._image;
+  }
+, get ceiling(){
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._ceiling;
+  }
+, get floor(){
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._floor;
+  }
+, get pool(){
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._pool;
+  }
+};
+
+Plane.prototype.render = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+  <span class="hljs-keyword">this</span>.ctx.fillStyle = <span class="hljs-keyword">this</span>.ceiling;
+  <span class="hljs-keyword">this</span>.ctx.fillRect(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-keyword">this</span>.width, <span class="hljs-keyword">this</span>.height2);
+  <span class="hljs-keyword">this</span>.ctx.fillStyle = <span class="hljs-keyword">this</span>.floor;
+  <span class="hljs-keyword">this</span>.ctx.fillRect(<span class="hljs-number">0</span>, <span class="hljs-keyword">this</span>.height2, <span class="hljs-keyword">this</span>.width, <span class="hljs-keyword">this</span>.height2);
+};
+
+Plane.prototype.getWall = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">i, j</span>)</span>{
+  <span class="hljs-keyword">var</span> index = <span class="hljs-keyword">this</span>.index(i, j);
+  <span class="hljs-keyword">return</span> (index !== -<span class="hljs-number">1</span>) ? <span class="hljs-keyword">this</span>._walls[index] : <span class="hljs-number">0</span>;
+};
+
+Plane.prototype.setWall = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">i, j, val</span>)</span>{
+  <span class="hljs-keyword">var</span> index = <span class="hljs-keyword">this</span>.index(i, j);
+  <span class="hljs-keyword">if</span> (index !== -<span class="hljs-number">1</span>){
+    <span class="hljs-keyword">this</span>._walls[index] = val;
+  }
+};
+
+Plane.prototype.index = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">i, j</span>)</span>{
+  <span class="hljs-keyword">var</span> index = i * <span class="hljs-keyword">this</span>.size + j;
+  <span class="hljs-keyword">if</span>(i &lt; <span class="hljs-number">0</span> || i &gt;= <span class="hljs-keyword">this</span>.size){
+    <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+  }
+  <span class="hljs-keyword">if</span>(j &lt; <span class="hljs-number">0</span> || j &gt;= <span class="hljs-keyword">this</span>.size){
+    <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+  }
+  <span class="hljs-keyword">return</span> (index &gt;= <span class="hljs-number">0</span> &amp;&amp; index &lt; <span class="hljs-keyword">this</span>.size2) ? index : -<span class="hljs-number">1</span>;
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Plane.prototype.randomize = function() {
+  for (var i = 0; i &lt; this.size2; i++) {
+    var val = Math.random() &lt; 0.3 ? 1 : 0;
+    this._grids[i] = val;
+  }
+};</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+Plane.prototype.print = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>function pad(num, size) {
+  var s = ‘      ‘ + num;
+  return s.substr(s.length - size);
+}</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+  <span class="hljs-keyword">var</span> line = <span class="hljs-string">''</span>;
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">this</span>.size; i++){
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> j = <span class="hljs-number">0</span>; j &lt; <span class="hljs-keyword">this</span>.size; j++){
+      line = line + (<span class="hljs-keyword">this</span>.getWall(i, j) ? <span class="hljs-string">'#'</span> : <span class="hljs-string">' '</span>);
+    }
+    line = line + <span class="hljs-string">'\n'</span>;
+  }
+  <span class="hljs-built_in">console</span>.log(line);
+
+};</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

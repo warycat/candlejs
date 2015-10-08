@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>god.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="artifact.html">
+                  artifact.js
+                </a>
+              
+                
+                <a class="source" href="bot.html">
+                  bot.js
+                </a>
+              
+                
+                <a class="source" href="camera.html">
+                  camera.js
+                </a>
+              
+                
+                <a class="source" href="candle.html">
+                  candle.js
+                </a>
+              
+                
+                <a class="source" href="entity.html">
+                  entity.js
+                </a>
+              
+                
+                <a class="source" href="god.html">
+                  god.js
+                </a>
+              
+                
+                <a class="source" href="keyboard.html">
+                  keyboard.js
+                </a>
+              
+                
+                <a class="source" href="label.html">
+                  label.js
+                </a>
+              
+                
+                <a class="source" href="level.html">
+                  level.js
+                </a>
+              
+                
+                <a class="source" href="loop.html">
+                  loop.js
+                </a>
+              
+                
+                <a class="source" href="main.html">
+                  main.js
+                </a>
+              
+                
+                <a class="source" href="plane.html">
+                  plane.js
+                </a>
+              
+                
+                <a class="source" href="player.html">
+                  player.js
+                </a>
+              
+                
+                <a class="source" href="sky.html">
+                  sky.js
+                </a>
+              
+                
+                <a class="source" href="sprite.html">
+                  sprite.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>god.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-comment">/* global Artifact Bot */</span>
+
+<span class="hljs-keyword">var</span> God = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">canvas, artifactsInfo, botsInfo, size, grids</span>)</span>{
+  <span class="hljs-keyword">this</span>._canvas = canvas;
+  <span class="hljs-keyword">this</span>._artifactsInfo = artifactsInfo;
+  <span class="hljs-keyword">this</span>._botsInfo = botsInfo;
+  <span class="hljs-keyword">this</span>._bots = [];
+  <span class="hljs-keyword">this</span>._artifacts = [];
+  <span class="hljs-keyword">this</span>._pool = [];
+  <span class="hljs-keyword">this</span>._render = [];
+
+  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; size; i++){
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> j = <span class="hljs-number">0</span>; j &lt; size; j++){
+      <span class="hljs-keyword">if</span>(grids[i][j] &gt; <span class="hljs-number">0</span>){
+        <span class="hljs-keyword">var</span> tag = grids[i][j];
+        <span class="hljs-keyword">var</span> entity = <span class="hljs-keyword">this</span>.spawnFn(tag, artifactsInfo, botsInfo);
+        <span class="hljs-keyword">if</span>(entity){
+          entity.setPosition(i + <span class="hljs-number">0.5</span>, j + <span class="hljs-number">0.5</span>);
+          <span class="hljs-keyword">this</span>.pool.push(entity);
+        }
+      }
+    }
+  }
+};
+
+God.prototype = {
+  get artifactsInfo(){
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._artifactsInfo;
+  }
+, get botsInfo(){
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._botsInfo;
+  }
+, get artifacts(){
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._artifacts;
+  }
+, get bots(){
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._bots;
+  }
+, get pool(){
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._pool;
+  }
+, get canvas(){
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._canvas;
+  }
+};
+
+God.prototype.spawnFn = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">tag, artifacts, bots</span>)</span>{
+  <span class="hljs-keyword">var</span> name;
+  <span class="hljs-keyword">var</span> texture;
+  <span class="hljs-keyword">if</span>(tag &gt;= <span class="hljs-number">23</span> &amp;&amp; tag &lt; <span class="hljs-number">72</span>){
+    name = artifacts.info[tag].name;
+    texture = <span class="hljs-keyword">this</span>.artifactsInfo.texture;
+    <span class="hljs-keyword">var</span> artifact = <span class="hljs-keyword">new</span> Artifact(name, tag, texture);
+    <span class="hljs-keyword">this</span>.artifacts.push(artifacts);
+    <span class="hljs-keyword">return</span> artifact;
+  }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(tag === <span class="hljs-number">500</span>){
+    name = bots[tag].name;
+    texture = bots[tag].texture;
+    <span class="hljs-keyword">var</span> atlas = bots[tag].atlas;
+    <span class="hljs-keyword">var</span> animations = bots[tag].animations;
+    <span class="hljs-keyword">var</span> bot = <span class="hljs-keyword">new</span> Bot(name, tag, texture, atlas, animations);
+    <span class="hljs-keyword">this</span>.bots.push(bot);
+    <span class="hljs-keyword">return</span> bot;
+  }<span class="hljs-keyword">else</span>{
+    <span class="hljs-built_in">console</span>.log(tag + <span class="hljs-string">' Entity Not Found'</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+  }
+};
+
+God.prototype.render = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._render;
+};
+
+God.prototype.viewFrom = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">player, focus</span>)</span>{
+  <span class="hljs-keyword">var</span> ppos = player.position;
+  <span class="hljs-keyword">var</span> viewDist = <span class="hljs-keyword">this</span>.canvas.width * focus;
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-keyword">this</span>.pool.length - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--) {
+    <span class="hljs-keyword">var</span> entity = <span class="hljs-keyword">this</span>.pool[i];
+    <span class="hljs-keyword">var</span> epos = entity.position;
+    <span class="hljs-keyword">var</span> xx = epos.x - ppos.x;
+    <span class="hljs-keyword">var</span> yy = epos.y - ppos.y;
+    <span class="hljs-keyword">var</span> distance = <span class="hljs-built_in">Math</span>.sqrt(xx * xx + yy * yy);
+    <span class="hljs-keyword">var</span> angle = <span class="hljs-built_in">Math</span>.atan2(yy, xx) - player.theta;
+
+    <span class="hljs-keyword">var</span> delta = (angle + <span class="hljs-number">3</span> * <span class="hljs-built_in">Math</span>.PI) % (<span class="hljs-built_in">Math</span>.PI * <span class="hljs-number">2</span>) - <span class="hljs-built_in">Math</span>.PI;
+    <span class="hljs-keyword">if</span>(delta &gt; <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">3</span> || delta &lt; -<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">3</span>) {
+      <span class="hljs-keyword">this</span>._render[i] = <span class="hljs-literal">null</span>;
+    }<span class="hljs-keyword">else</span>{
+      <span class="hljs-keyword">var</span> p = <span class="hljs-keyword">this</span>.project(angle, distance, viewDist);
+
+      <span class="hljs-keyword">var</span> texture = entity.texture;
+      <span class="hljs-keyword">var</span> rect = entity.rect();
+      <span class="hljs-keyword">var</span> sx = rect.x;
+      <span class="hljs-keyword">var</span> sy = rect.y;
+      <span class="hljs-keyword">var</span> sw = rect.w;
+      <span class="hljs-keyword">var</span> sh = rect.h;
+      <span class="hljs-keyword">var</span> dx = p.left;
+      <span class="hljs-keyword">var</span> dy = p.top;
+      <span class="hljs-keyword">var</span> dw = p.wallHeight;
+      <span class="hljs-keyword">var</span> dh = p.wallHeight;
+
+      <span class="hljs-keyword">this</span>._render[i] = {
+        distance: distance
+      , texture: texture
+      , sx: sx
+      , sy: sy
+      , sw: sw
+      , sh: sh
+      , dx: dx
+      , dy: dy
+      , dw: dw
+      , dh: dh
+      };
+    }
+  }
+};
+
+God.prototype.animate = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ms</span>)</span>{
+  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-keyword">this</span>.bots.length - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--){
+    <span class="hljs-keyword">var</span> bot = <span class="hljs-keyword">this</span>.bots[i];
+    bot.animate(ms);
+  }
+};
+
+God.prototype.project = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">angle, distance, viewDist</span>) </span>{
+  <span class="hljs-keyword">var</span> z = distance * <span class="hljs-built_in">Math</span>.cos(angle);
+  <span class="hljs-keyword">var</span> wallHeight = <span class="hljs-keyword">this</span>.canvas.height / z;
+  <span class="hljs-keyword">var</span> bottom = <span class="hljs-keyword">this</span>.canvas.height / <span class="hljs-number">2</span> * (<span class="hljs-number">1</span> + <span class="hljs-number">1</span> / z);
+  <span class="hljs-keyword">var</span> top = bottom - wallHeight;
+  <span class="hljs-keyword">var</span> x = <span class="hljs-built_in">Math</span>.tan(angle) * viewDist;
+  <span class="hljs-keyword">var</span> left = <span class="hljs-keyword">this</span>.canvas.width / <span class="hljs-number">2</span> + x - wallHeight / <span class="hljs-number">2</span>;
+  <span class="hljs-keyword">return</span> {
+    top: top,
+    left: left,
+    wallHeight: wallHeight
+  };
+};</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
