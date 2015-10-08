@@ -1,10 +1,13 @@
 var Loop = function(fn){
+  this._started = false;
   this._fn = fn;
   this.frame = this.frame.bind(this);
   this.lastTime = 0;
 };
 
 Loop.prototype.start = function(){
+  if(this._started) { return; }
+  this._started = true;
   requestAnimationFrame(this.frame);
 };
 
