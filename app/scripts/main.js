@@ -51,7 +51,7 @@ var gangnam = function(){
   var pistol = new Sprite(canvas, this.images['pistol.png'], 5, 50, 128, 128, canvas.width / 2, canvas.height, 0.5, 1);
   var level = this.jsons['gangnamLevel.json'];
   var plane = new Plane(canvas, level.ceiling, level.floor, this.images['tiles.png'], 64, level.grids);
-  var camera = new Camera(canvas, 2, 32, 0.8, plane);
+  var camera = new Camera(canvas, 4, 16, 0.8, plane);
 
 
   var artifactsInfo = {
