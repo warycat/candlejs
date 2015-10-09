@@ -93,7 +93,7 @@ gulp.task('sounds', () => {
 });
 
 gulp.task('docs', () => {
-  return gulp.src('app/docs/*.*').pipe(gulp.dest('dist/docs'));
+  return gulp.src('app/docs/**/*.*').pipe(gulp.dest('dist/docs'));
 });
 
 gulp.task('extras', () => {
