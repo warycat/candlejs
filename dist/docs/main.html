@@ -115,37 +115,188 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              
+              <p>This is the main file of the Demo Game. You can write your game in multiple JavaScript files and load them dynamically.</p>
+
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-comment">/* global Candle $ God Player Loop Label Camera Plane Sprite*/</span>
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>This line of comment is used by es-lint.</p>
 
-<span class="hljs-keyword">var</span> candle = <span class="hljs-keyword">new</span> Candle();
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-comment">/* global Candle $ God Player Loop Label Camera Plane Sprite*/</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Create a Candle Object. It has some useful tool to detect the browser. That help you to config the game before it is loaded.</p>
 
-<span class="hljs-keyword">var</span> assets = {
-  scriptFolder: <span class="hljs-string">'scripts/'</span>
-, scriptFiles: [<span class="hljs-string">'keyboard.js'</span>, <span class="hljs-string">'loop.js'</span>, <span class="hljs-string">'level.js'</span>, <span class="hljs-string">'entity.js'</span>, <span class="hljs-string">'artifact.js'</span>, <span class="hljs-string">'bot.js'</span>, <span class="hljs-string">'god.js'</span>, <span class="hljs-string">'sky.js'</span>, <span class="hljs-string">'plane.js'</span>, <span class="hljs-string">'camera.js'</span>, <span class="hljs-string">'player.js'</span>, <span class="hljs-string">'label.js'</span>, <span class="hljs-string">'sprite.js'</span>]
-, soundFolder: <span class="hljs-string">'sounds/'</span>
-, soundFiles: [<span class="hljs-string">'gangnam.mp3'</span>, <span class="hljs-string">'shotgun-reload.mp3'</span>, <span class="hljs-string">'shotgun-fire.mp3'</span>]
-, jsonFolder: <span class="hljs-string">'jsons/'</span>
-, jsonFiles: [<span class="hljs-string">'levels.json'</span>, <span class="hljs-string">'Wolf08.json'</span>, <span class="hljs-string">'artifacts.json'</span>, <span class="hljs-string">'gangnamAtlas.json'</span>, <span class="hljs-string">'gangnamLevel.json'</span>, <span class="hljs-string">'gangnamAnimations.json'</span>]
-, imageFolder: <span class="hljs-string">'images/'</span>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> candle = <span class="hljs-keyword">new</span> Candle();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>All asset files in the game are put in one json object and passed to the Candle to load the properly.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> assets = {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p><strong>Script</strong> files are loaded one by one, so you manage scripts dependencies by puting the depended one first.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  scriptFolder: <span class="hljs-string">'scripts/'</span>
+, scriptFiles: [<span class="hljs-string">'keyboard.js'</span>, <span class="hljs-string">'loop.js'</span>, <span class="hljs-string">'level.js'</span>, <span class="hljs-string">'entity.js'</span>, <span class="hljs-string">'artifact.js'</span>, <span class="hljs-string">'bot.js'</span>, <span class="hljs-string">'god.js'</span>, <span class="hljs-string">'sky.js'</span>, <span class="hljs-string">'plane.js'</span>, <span class="hljs-string">'camera.js'</span>, <span class="hljs-string">'player.js'</span>, <span class="hljs-string">'label.js'</span>, <span class="hljs-string">'sprite.js'</span>]</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p><strong>Mp3</strong> sound files are supported. on mobile safari, you can only play sound after touch events.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>, soundFolder: <span class="hljs-string">'sounds/'</span>
+, soundFiles: [<span class="hljs-string">'gangnam.mp3'</span>, <span class="hljs-string">'shotgun-reload.mp3'</span>, <span class="hljs-string">'shotgun-fire.mp3'</span>]</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p><strong>Json</strong> files are used to repersent game levels and animation, or any data that is not convient to put inside a JavaScript file</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>, jsonFolder: <span class="hljs-string">'jsons/'</span>
+, jsonFiles: [<span class="hljs-string">'levels.json'</span>, <span class="hljs-string">'Wolf08.json'</span>, <span class="hljs-string">'artifacts.json'</span>, <span class="hljs-string">'gangnamAtlas.json'</span>, <span class="hljs-string">'gangnamLevel.json'</span>, <span class="hljs-string">'gangnamAnimations.json'</span>]</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p><strong>Image</strong> files are loaded.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>, imageFolder: <span class="hljs-string">'images/'</span>
 , imageFiles: [<span class="hljs-string">'sky1.jpg'</span>, <span class="hljs-string">'wall_texture.jpg'</span>, <span class="hljs-string">'tiles.png'</span>, <span class="hljs-string">'artifacts.png'</span>, <span class="hljs-string">'gangnam.png'</span>, <span class="hljs-string">'pistol.png'</span>]
-};
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Pass assets to Candle.</p>
 
-candle.setAssets(assets);
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>candle.setAssets(assets);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>Canvas are configure according to different browser size.</p>
 
-<span class="hljs-keyword">var</span> canvasConfig;
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> canvasConfig;
 
-<span class="hljs-keyword">if</span>(candle.mobileAndTabletcheck()){
-  canvasConfig = {
+<span class="hljs-keyword">if</span>(candle.mobileAndTabletcheck()){</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Mobile branch config.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  canvasConfig = {
     id: <span class="hljs-string">'mobile-display'</span>
   , width: $(<span class="hljs-built_in">window</span>).width()
   , height: $(<span class="hljs-built_in">window</span>).height()
   };
   $(<span class="hljs-string">'#web'</span>).remove();
-}<span class="hljs-keyword">else</span>{
-  canvasConfig = {
+
+}<span class="hljs-keyword">else</span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>Desktop branch config.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  canvasConfig = {
     id: <span class="hljs-string">'web-display'</span>
   , width: <span class="hljs-number">290</span>
   , height: <span class="hljs-number">506</span>
@@ -154,47 +305,304 @@ candle.setAssets(assets);
   , left: <span class="hljs-string">'224px'</span>
   };
   $(<span class="hljs-string">'#mobile'</span>).remove();
-}
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>Pass canvas config to candle.</p>
 
-candle.setCanvas(canvasConfig);
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>candle.setCanvas(canvasConfig);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>The <strong>Game</strong> object is a function which will be exec by candle once and return a loop function which will be exec by by candle on each frame.</p>
 
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> gangnam = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+  <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>Get <strong>canvas</strong> object from candle.</p>
 
-<span class="hljs-keyword">var</span> gangnam = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
-  <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
-  <span class="hljs-keyword">var</span> canvas = self.canvas;
-  <span class="hljs-keyword">var</span> keyboard = self.keyboard;
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> canvas = self.canvas;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>Get <strong>keyboard</strong> object from candle.</p>
 
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> keyboard = self.keyboard;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>Create a <strong>Label</strong> object to display score in the game.</p>
 
-  self.scoreLable = <span class="hljs-keyword">new</span> Label(canvas, canvas.width / <span class="hljs-number">2</span>, canvas.height / <span class="hljs-number">10</span>, <span class="hljs-string">'20px Arial'</span>, <span class="hljs-string">'center'</span>, <span class="hljs-string">'white'</span>);
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  self.scoreLable = <span class="hljs-keyword">new</span> Label(canvas, canvas.width / <span class="hljs-number">2</span>, canvas.height / <span class="hljs-number">10</span>, <span class="hljs-string">'20px Arial'</span>, <span class="hljs-string">'center'</span>, <span class="hljs-string">'white'</span>);
   self.score = <span class="hljs-number">0</span>;
-  self.scoreText = <span class="hljs-string">'Score: '</span>;
-  <span class="hljs-keyword">var</span> pistol = <span class="hljs-keyword">new</span> Sprite(canvas, <span class="hljs-keyword">this</span>.images[<span class="hljs-string">'pistol.png'</span>], <span class="hljs-number">5</span>, <span class="hljs-number">50</span>, <span class="hljs-number">128</span>, <span class="hljs-number">128</span>, canvas.width / <span class="hljs-number">2</span>, canvas.height, <span class="hljs-number">0.5</span>, <span class="hljs-number">1</span>);
-  <span class="hljs-keyword">var</span> level = <span class="hljs-keyword">this</span>.jsons[<span class="hljs-string">'gangnamLevel.json'</span>];
-  <span class="hljs-keyword">var</span> plane = <span class="hljs-keyword">new</span> Plane(canvas, level.ceiling, level.floor, <span class="hljs-keyword">this</span>.images[<span class="hljs-string">'tiles.png'</span>], <span class="hljs-number">64</span>, level.grids);
-  <span class="hljs-keyword">var</span> camera = <span class="hljs-keyword">new</span> Camera(canvas, <span class="hljs-number">4</span>, <span class="hljs-number">25</span>, <span class="hljs-number">0.8</span>, plane);
+  self.scoreText = <span class="hljs-string">'Score: '</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p>Create a <strong>Sprite</strong> object to display a weapon.</p>
 
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> pistol = <span class="hljs-keyword">new</span> Sprite(canvas, <span class="hljs-keyword">this</span>.images[<span class="hljs-string">'pistol.png'</span>], <span class="hljs-number">5</span>, <span class="hljs-number">50</span>, <span class="hljs-number">128</span>, <span class="hljs-number">128</span>, canvas.width / <span class="hljs-number">2</span>, canvas.height, <span class="hljs-number">0.5</span>, <span class="hljs-number">1</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <p>Get loaded json data file from candle. It is a level file. For more info you can read the json file in jsons folder.</p>
 
-  <span class="hljs-keyword">var</span> artifactsInfo = {
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> level = <span class="hljs-keyword">this</span>.jsons[<span class="hljs-string">'gangnamLevel.json'</span>];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <p>Create <strong>Plane</strong> of wall of the game.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> plane = <span class="hljs-keyword">new</span> Plane(canvas, level.ceiling, level.floor, <span class="hljs-keyword">this</span>.images[<span class="hljs-string">'tiles.png'</span>], <span class="hljs-number">64</span>, level.grids);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <p>Create a <strong>Camera</strong> object.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> camera = <span class="hljs-keyword">new</span> Camera(canvas, <span class="hljs-number">4</span>, <span class="hljs-number">25</span>, <span class="hljs-number">0.8</span>, plane);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <p>Create <strong>aritifacts</strong> info with loaded artifacts info json file and texture image file.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> artifactsInfo = {
     info: <span class="hljs-keyword">this</span>.jsons[<span class="hljs-string">'artifacts.json'</span>]
   , texture: <span class="hljs-keyword">this</span>.images[<span class="hljs-string">'artifacts.png'</span>]
-  };
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-23">&#182;</a>
+              </div>
+              <p>Create <strong>bot</strong> info with loaded bot image and image atlas created by texture packer and animation file.</p>
 
-  <span class="hljs-keyword">var</span> botsInfo = {
-  <span class="hljs-string">'500'</span>: {
-      name: <span class="hljs-string">'Gangnam'</span>
-    , tag: <span class="hljs-number">500</span>
-    , texture: <span class="hljs-keyword">this</span>.images[<span class="hljs-string">'gangnam.png'</span>]
-    , atlas: <span class="hljs-keyword">this</span>.jsons[<span class="hljs-string">'gangnamAtlas.json'</span>]
-    , animations: <span class="hljs-keyword">this</span>.jsons[<span class="hljs-string">'gangnamAnimations.json'</span>]
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> botsInfo = {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-24">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-24">&#182;</a>
+              </div>
+              <p>bot tag in level file</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-string">'500'</span>: {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-25">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-25">&#182;</a>
+              </div>
+              <p>Bot name.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      name: <span class="hljs-string">'Gangnam'</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-26">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-26">&#182;</a>
+              </div>
+              <p>Bot tag</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    , tag: <span class="hljs-number">500</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-27">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-27">&#182;</a>
+              </div>
+              <p>Big texture image generated by texture packer.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    , texture: <span class="hljs-keyword">this</span>.images[<span class="hljs-string">'gangnam.png'</span>]</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-28">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-28">&#182;</a>
+              </div>
+              <p>Atalas data generated by texture packer.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    , atlas: <span class="hljs-keyword">this</span>.jsons[<span class="hljs-string">'gangnamAtlas.json'</span>]</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-29">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-29">&#182;</a>
+              </div>
+              <p>Key framed animation data file.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    , animations: <span class="hljs-keyword">this</span>.jsons[<span class="hljs-string">'gangnamAnimations.json'</span>]
     }
-  };
-  <span class="hljs-keyword">var</span> god = <span class="hljs-keyword">new</span> God(canvas, artifactsInfo, botsInfo, <span class="hljs-number">64</span>, level.grids);
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-30">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-30">&#182;</a>
+              </div>
+              <p>Create <strong>God</strong> object to hold all objects in 3d scene.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> god = <span class="hljs-keyword">new</span> God(canvas, artifactsInfo, botsInfo, <span class="hljs-number">64</span>, level.grids);
 
   <span class="hljs-keyword">var</span> bots = god.bots;
 
-  <span class="hljs-keyword">var</span> dancers = [];
+  <span class="hljs-keyword">var</span> dancers = [];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-31">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-31">&#182;</a>
+              </div>
+              <p>Dance autometa used for the dancing AI.</p>
 
-  <span class="hljs-keyword">var</span> dance = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ms</span>)</span>{
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> dance = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ms</span>)</span>{
     <span class="hljs-keyword">switch</span>(<span class="hljs-keyword">this</span>.state){
       <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>:
         <span class="hljs-keyword">this</span>.damaged = <span class="hljs-literal">false</span>;
@@ -255,9 +663,22 @@ candle.setCanvas(canvasConfig);
 
   <span class="hljs-keyword">var</span> damage = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
     <span class="hljs-keyword">this</span>.damaged = <span class="hljs-literal">true</span>;
-  };
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-32">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-32">&#182;</a>
+              </div>
+              <p>Init all bots.</p>
 
-  <span class="hljs-keyword">var</span> i;
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> i;
   <span class="hljs-keyword">for</span>(i = <span class="hljs-number">0</span>; i &lt; bots.length; i++){
     <span class="hljs-keyword">var</span> bot = bots[i];
     <span class="hljs-keyword">if</span>(bot.tag === <span class="hljs-number">500</span>){
@@ -267,82 +688,596 @@ candle.setCanvas(canvasConfig);
       bot.damage = damage;
       dancers.push(bot);
     }
-  }
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-33">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-33">&#182;</a>
+              </div>
+              <p>Create <strong>Player</strong> named larry.</p>
 
-  <span class="hljs-keyword">var</span> player = <span class="hljs-keyword">new</span> Player(<span class="hljs-string">'larry'</span>);
-  player.setPosition(<span class="hljs-number">12</span>, <span class="hljs-number">12</span>);
-  player.setTheta(<span class="hljs-built_in">Math</span>.PI);
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> player = <span class="hljs-keyword">new</span> Player(<span class="hljs-string">'larry'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-34">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-34">&#182;</a>
+              </div>
+              <p>Set its init position.</p>
 
-  player.control = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
-    <span class="hljs-keyword">var</span> touchStatus = candle.touchStatus;
-    <span class="hljs-keyword">var</span> states = keyboard.states;
-    <span class="hljs-keyword">var</span> speed = (states.up - states.down + touchStatus.UP - touchStatus.DOWN) * <span class="hljs-number">0.005</span>;
-    <span class="hljs-keyword">var</span> omega = (states.right - states.left + touchStatus.RIGHT - touchStatus.LEFT) * <span class="hljs-number">0.002</span>;
-    <span class="hljs-keyword">this</span>.setOmega(omega);
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  player.setPosition(<span class="hljs-number">12</span>, <span class="hljs-number">12</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-35">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-35">&#182;</a>
+              </div>
+              <p>Set its init direction.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  player.setTheta(<span class="hljs-built_in">Math</span>.PI);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-36">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-36">&#182;</a>
+              </div>
+              <p>Create player control function to move and rotate player according to keyboard input and touch input.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  player.control = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-37">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-37">&#182;</a>
+              </div>
+              <p>Get touch status from candle.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> touchStatus = candle.touchStatus;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-38">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-38">&#182;</a>
+              </div>
+              <p>Get keyboard status.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> states = keyboard.states;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-39">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-39">&#182;</a>
+              </div>
+              <p>Caculate speed.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> speed = (states.up - states.down + touchStatus.UP - touchStatus.DOWN) * <span class="hljs-number">0.005</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-40">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-40">&#182;</a>
+              </div>
+              <p>Caculate angular speed.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> omega = (states.right - states.left + touchStatus.RIGHT - touchStatus.LEFT) * <span class="hljs-number">0.002</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-41">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-41">&#182;</a>
+              </div>
+              <p>Move and rotate player.
+For the simplicity of the demo, physics is not added here.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">this</span>.setOmega(omega);
     <span class="hljs-keyword">this</span>.setSpeed(speed);
-  };
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-42">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-42">&#182;</a>
+              </div>
+              <p>Fire function for player to animate weapon and play a gun shot sound.</p>
 
-  player.fire = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
-    <span class="hljs-keyword">for</span>(i = <span class="hljs-number">0</span>; i &lt; bots.length; i++){
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  player.fire = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-43">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-43">&#182;</a>
+              </div>
+              <p>Find a bot in fire range.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">for</span>(i = <span class="hljs-number">0</span>; i &lt; bots.length; i++){
       bot = bots[i];
       <span class="hljs-keyword">if</span>(bot.tag === <span class="hljs-number">500</span>){
         <span class="hljs-keyword">if</span> (player.alpha(bot.position) &lt; <span class="hljs-number">0.1</span>){
           bot.damage();
         }
       }
-    }
-    pistol.animateOnce();
-    self.sounds[<span class="hljs-string">'gangnam.mp3'</span>].play();
-    self.sounds[<span class="hljs-string">'shotgun-fire.mp3'</span>].play();
-    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-44">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-44">&#182;</a>
+              </div>
+              <p>Animate pistol.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    pistol.animateOnce();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-45">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-45">&#182;</a>
+              </div>
+              <p>Play Gangnam Style BGM.
+Mobile safari only allow sounds to be played after touch event.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    self.sounds[<span class="hljs-string">'gangnam.mp3'</span>].play();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-46">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-46">&#182;</a>
+              </div>
+              <p>Play Gun Shot sound.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    self.sounds[<span class="hljs-string">'shotgun-fire.mp3'</span>].play();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-47">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-47">&#182;</a>
+              </div>
+              <p>Play Gun Reload sound after 1000 ms.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
       self.sounds[<span class="hljs-string">'shotgun-reload.mp3'</span>].play();
     }, <span class="hljs-number">1000</span>);
-  };
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-48">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-48">&#182;</a>
+              </div>
+              <p>On desktop bind fire action to SPACE key.</p>
 
-  player.bindActionKey(<span class="hljs-string">'space'</span>, <span class="hljs-number">1000</span>, player.fire);
-  candle.bindTapAction(player.fire);
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  player.bindActionKey(<span class="hljs-string">'space'</span>, <span class="hljs-number">1000</span>, player.fire);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-49">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-49">&#182;</a>
+              </div>
+              <p>On mobile bind fire action to tap event.</p>
 
-  <span class="hljs-keyword">var</span> loop = <span class="hljs-keyword">new</span> Loop(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ms</span>)</span>{
-    player.control();
-    player.motion(ms);
-    player.onActionKey(<span class="hljs-string">'space'</span>, keyboard.states.space, ms);
-    <span class="hljs-keyword">for</span>(i = <span class="hljs-number">0</span>; i &lt; dancers.length; i++){
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  candle.bindTapAction(player.fire);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-50">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-50">&#182;</a>
+              </div>
+              <p>Main <strong>Loop</strong> object returned by Game.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> loop = <span class="hljs-keyword">new</span> Loop(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ms</span>)</span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-51">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-51">&#182;</a>
+              </div>
+              <p>Caculate player control.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    player.control();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-52">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-52">&#182;</a>
+              </div>
+              <p>Move and rotate player.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    player.motion(ms);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-53">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-53">&#182;</a>
+              </div>
+              <p>Trigger action key event.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    player.onActionKey(<span class="hljs-string">'space'</span>, keyboard.states.space, ms);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-54">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-54">&#182;</a>
+              </div>
+              <p>Iterate dancers.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">for</span>(i = <span class="hljs-number">0</span>; i &lt; dancers.length; i++){
       <span class="hljs-keyword">var</span> dancer = dancers[i];
       dancer.dance(ms);
       dancer.move(ms);
-    }
-    plane.render();
-    camera.castRays(player, plane);
-    god.animate(ms);
-    god.viewFrom(player, <span class="hljs-number">0.8</span>);
-    <span class="hljs-keyword">var</span> ws = camera.render();
-    <span class="hljs-keyword">var</span> es = god.render();
-    self.render(ws, es);
-    self.scoreLable.render(self.scoreText + self.score);
-    pistol.render(ms);
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-55">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-55">&#182;</a>
+              </div>
+              <p>Render plane.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    plane.render();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-56">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-56">&#182;</a>
+              </div>
+              <p>Camera cast ray from player.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    camera.castRays(player, plane);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-57">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-57">&#182;</a>
+              </div>
+              <p>Animate all object in 3d scene.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    god.animate(ms);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-58">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-58">&#182;</a>
+              </div>
+              <p>View all objects from player.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    god.viewFrom(player, <span class="hljs-number">0.8</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-59">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-59">&#182;</a>
+              </div>
+              <p>Get wall strips from camera.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> ws = camera.render();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-60">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-60">&#182;</a>
+              </div>
+              <p>Get objects from god.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> es = god.render();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-61">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-61">&#182;</a>
+              </div>
+              <p>Render walls and objects.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    self.render(ws, es);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-62">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-62">&#182;</a>
+              </div>
+              <p>Render score lable.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    self.scoreLable.render(self.scoreText + self.score);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-63">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-63">&#182;</a>
+              </div>
+              <p>Render pistol.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    pistol.render(ms);
   });
 
   <span class="hljs-keyword">return</span> loop;
-};
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-64">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-64">&#182;</a>
+              </div>
+              <p>Display loading progress.</p>
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onProgress</span>(<span class="hljs-params">message</span>)</span>{
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onProgress</span>(<span class="hljs-params">message</span>)</span>{
   $(<span class="hljs-string">'#message'</span>).text(<span class="hljs-string">'Loading: '</span> + message);
-}
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-65">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-65">&#182;</a>
+              </div>
+              <p>Candle load game, hook loading progress and loaded event.</p>
 
-candle.load(gangnam, onProgress, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
-  <span class="hljs-keyword">if</span>(candle.mobileAndTabletcheck()){
-    $(<span class="hljs-string">'#message'</span>).text(<span class="hljs-string">'Candle.js Ready. Touch to Fire'</span>);
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>candle.load(gangnam, onProgress, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+
+  <span class="hljs-keyword">if</span>(candle.mobileAndTabletcheck()){</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-66">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-66">&#182;</a>
+              </div>
+              <p>Mobile branch.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    $(<span class="hljs-string">'#message'</span>).text(<span class="hljs-string">'Candle.js Ready. Touch to Fire'</span>);
     <span class="hljs-built_in">document</span>.addEventListener(<span class="hljs-string">'touchend'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
       $(<span class="hljs-string">'#message'</span>).remove();
-      $(<span class="hljs-string">'#loader'</span>).remove();
-      candle.loop.start();
+      $(<span class="hljs-string">'#loader'</span>).remove();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-67">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-67">&#182;</a>
+              </div>
+              <p>Start Candle main loop.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      candle.loop.start();
     });
-  }<span class="hljs-keyword">else</span>{
-    $(<span class="hljs-string">'#message'</span>).text(<span class="hljs-string">'Candle.js Ready. SPACE to Fire'</span>);
+  }<span class="hljs-keyword">else</span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-68">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-68">&#182;</a>
+              </div>
+              <p>Desktop branch.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    $(<span class="hljs-string">'#message'</span>).text(<span class="hljs-string">'Candle.js Ready. SPACE to Fire'</span>);
     $(<span class="hljs-string">'#loader'</span>).click(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
       $(<span class="hljs-string">'#message'</span>).remove();
-      $(<span class="hljs-string">'#loader'</span>).remove();
-      candle.loop.start();
+      $(<span class="hljs-string">'#loader'</span>).remove();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-69">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-69">&#182;</a>
+              </div>
+              <p>Start Candle main loop.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      candle.loop.start();
     });
   }
 });</pre></div></div>
