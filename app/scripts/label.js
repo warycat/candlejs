@@ -1,3 +1,4 @@
+// Constuctor
 var Label = function(canvas, x, y, font, textAlign, fillStyle){
   this._canvas = canvas;
   this._x = x;
@@ -7,6 +8,7 @@ var Label = function(canvas, x, y, font, textAlign, fillStyle){
   this._fillStyle = fillStyle;
 };
 
+// Properties
 Label.prototype = {
   get x(){
     return this._x;
@@ -31,6 +33,7 @@ Label.prototype = {
   }
 };
 
+// Render function
 Label.prototype.render = function(text){
   var ctx = this.ctx;
   ctx.save();

@@ -118,9 +118,22 @@
               
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-comment">/* global Artifact Bot */</span>
+            <div class="content"><div class='highlight'><pre><span class="hljs-comment">/* global Artifact Bot */</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Constructor</p>
 
-<span class="hljs-keyword">var</span> God = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">canvas, artifactsInfo, botsInfo, size, grids</span>)</span>{
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> God = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">canvas, artifactsInfo, botsInfo, size, grids</span>)</span>{
   <span class="hljs-keyword">this</span>._canvas = canvas;
   <span class="hljs-keyword">this</span>._artifactsInfo = artifactsInfo;
   <span class="hljs-keyword">this</span>._botsInfo = botsInfo;
@@ -141,9 +154,22 @@
       }
     }
   }
-};
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Properties</p>
 
-God.prototype = {
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>God.prototype = {
   get artifactsInfo(){
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._artifactsInfo;
   }
@@ -162,9 +188,22 @@ God.prototype = {
 , get canvas(){
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._canvas;
   }
-};
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Spawn function. This function should be implemented by different assets group.</p>
 
-God.prototype.spawnFn = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">tag, artifacts, bots</span>)</span>{
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>God.prototype.spawnFn = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">tag, artifacts, bots</span>)</span>{
   <span class="hljs-keyword">var</span> name;
   <span class="hljs-keyword">var</span> texture;
   <span class="hljs-keyword">if</span>(tag &gt;= <span class="hljs-number">23</span> &amp;&amp; tag &lt; <span class="hljs-number">72</span>){
@@ -185,13 +224,39 @@ God.prototype.spawnFn = <span class="hljs-function"><span class="hljs-keyword">f
     <span class="hljs-built_in">console</span>.log(tag + <span class="hljs-string">' Entity Not Found'</span>);
     <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
   }
-};
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Render function</p>
 
-God.prototype.render = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>God.prototype.render = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._render;
-};
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>View all the objects in 3d scence</p>
 
-God.prototype.viewFrom = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">player, focus</span>)</span>{
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>God.prototype.viewFrom = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">player, focus</span>)</span>{
   <span class="hljs-keyword">var</span> ppos = player.position;
   <span class="hljs-keyword">var</span> viewDist = <span class="hljs-keyword">this</span>.canvas.width * focus;
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-keyword">this</span>.pool.length - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--) {
@@ -233,16 +298,42 @@ God.prototype.viewFrom = <span class="hljs-function"><span class="hljs-keyword">
       };
     }
   }
-};
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Animate all the bots</p>
 
-God.prototype.animate = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ms</span>)</span>{
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>God.prototype.animate = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ms</span>)</span>{
   <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-keyword">this</span>.bots.length - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--){
     <span class="hljs-keyword">var</span> bot = <span class="hljs-keyword">this</span>.bots[i];
     bot.animate(ms);
   }
-};
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Fisheye fix</p>
 
-God.prototype.project = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">angle, distance, viewDist</span>) </span>{
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>God.prototype.project = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">angle, distance, viewDist</span>) </span>{
   <span class="hljs-keyword">var</span> z = distance * <span class="hljs-built_in">Math</span>.cos(angle);
   <span class="hljs-keyword">var</span> wallHeight = <span class="hljs-keyword">this</span>.canvas.height / z;
   <span class="hljs-keyword">var</span> bottom = <span class="hljs-keyword">this</span>.canvas.height / <span class="hljs-number">2</span> * (<span class="hljs-number">1</span> + <span class="hljs-number">1</span> / z);

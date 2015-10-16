@@ -1,5 +1,6 @@
 /* global Artifact Bot */
 
+// Constructor
 var God = function(canvas, artifactsInfo, botsInfo, size, grids){
   this._canvas = canvas;
   this._artifactsInfo = artifactsInfo;
@@ -23,6 +24,7 @@ var God = function(canvas, artifactsInfo, botsInfo, size, grids){
   }
 };
 
+// Properties
 God.prototype = {
   get artifactsInfo(){
     return this._artifactsInfo;
@@ -44,6 +46,7 @@ God.prototype = {
   }
 };
 
+// Spawn function. This function should be implemented by different assets group.
 God.prototype.spawnFn = function(tag, artifacts, bots){
   var name;
   var texture;
@@ -67,10 +70,12 @@ God.prototype.spawnFn = function(tag, artifacts, bots){
   }
 };
 
+// Render function
 God.prototype.render = function(){
   return this._render;
 };
 
+// View all the objects in 3d scence
 God.prototype.viewFrom = function(player, focus){
   var ppos = player.position;
   var viewDist = this.canvas.width * focus;
@@ -115,6 +120,7 @@ God.prototype.viewFrom = function(player, focus){
   }
 };
 
+// Animate all the bots
 God.prototype.animate = function(ms){
   for(var i = this.bots.length - 1; i >= 0; i--){
     var bot = this.bots[i];
@@ -122,6 +128,7 @@ God.prototype.animate = function(ms){
   }
 };
 
+// Fisheye fix
 God.prototype.project = function(angle, distance, viewDist) {
   var z = distance * Math.cos(angle);
   var wallHeight = this.canvas.height / z;

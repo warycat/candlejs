@@ -1,3 +1,5 @@
+// This is used to render a sky box. It is currently removed.
+
 // var kPI = Math.PI;
 // var k2PI = 2 * kPI;
 

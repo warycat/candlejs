@@ -1,3 +1,4 @@
+// Constructor
 var Plane = function(canvas, ceiling, floor, image, size, grids){
   this._canvas = canvas;
   this._ctx = canvas.getContext('2d');
@@ -20,6 +21,7 @@ var Plane = function(canvas, ceiling, floor, image, size, grids){
   this.print();
 };
 
+// Properties
 Plane.prototype = {
   get ctx(){
     return this._ctx;
@@ -56,6 +58,7 @@ Plane.prototype = {
   }
 };
 
+// Render function
 Plane.prototype.render = function(){
   this.ctx.fillStyle = this.ceiling;
   this.ctx.fillRect(0, 0, this.width, this.height2);
@@ -63,11 +66,13 @@ Plane.prototype.render = function(){
   this.ctx.fillRect(0, this.height2, this.width, this.height2);
 };
 
+// Wall getter
 Plane.prototype.getWall = function(i, j){
   var index = this.index(i, j);
   return (index !== -1) ? this._walls[index] : 0;
 };
 
+// Wall setter
 Plane.prototype.setWall = function(i, j, val){
   var index = this.index(i, j);
   if (index !== -1){
@@ -75,6 +80,7 @@ Plane.prototype.setWall = function(i, j, val){
   }
 };
 
+// 2d array to 1d array index
 Plane.prototype.index = function(i, j){
   var index = i * this.size + j;
   if(i < 0 || i >= this.size){
@@ -86,14 +92,7 @@ Plane.prototype.index = function(i, j){
   return (index >= 0 && index < this.size2) ? index : -1;
 };
 
-
-// Plane.prototype.randomize = function() {
-//   for (var i = 0; i < this.size2; i++) {
-//     var val = Math.random() < 0.3 ? 1 : 0;
-//     this._grids[i] = val;
-//   }
-// };
-
+// Print walls in console
 Plane.prototype.print = function(){
   // function pad(num, size) {
   //   var s = '      ' + num;

@@ -1,3 +1,4 @@
+// Constructor
 var Sprite = function(canvas, image, count, inteval, width, height, positionX, positionY, anchorX, anchorY){
   this._canvas = canvas;
   this._image = image;
@@ -15,6 +16,7 @@ var Sprite = function(canvas, image, count, inteval, width, height, positionX, p
   this._animate = false;
 };
 
+// Properties
 Sprite.prototype = {
   get frame(){
     return this._frame;
@@ -51,11 +53,12 @@ Sprite.prototype = {
   }
 };
 
+// Animate once function
 Sprite.prototype.animateOnce = function(){
   this._animate = true;
 };
 
-
+// Render function
 Sprite.prototype.render = function(ms){
   if(this._animate){
     if(this._ms > this.inteval){

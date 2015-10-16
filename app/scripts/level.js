@@ -1,7 +1,6 @@
+// This file is used to extract wolf3d binary data to json data. All the levels are extracted already and saved in json folder.
 
 /*eslint-disable */
-
-
 function readPlaneData(file, offset, length, rle) {
     file.position = offset;
     var expandedLength = readUInt16(file),

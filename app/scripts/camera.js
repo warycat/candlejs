@@ -1,5 +1,6 @@
 /* global Candle */
 
+// Constructor
 var Camera = function(canvas, ppc, range, focus, plane){
   this._canvas = canvas;
   this._ctx = canvas.getContext('2d');
@@ -13,6 +14,7 @@ var Camera = function(canvas, ppc, range, focus, plane){
   this._render = [];
 };
 
+// Properties
 Camera.prototype = {
   get canvas(){
     return this._canvas;
@@ -43,20 +45,12 @@ Camera.prototype = {
   }
 };
 
-
+// Render function
 Camera.prototype.render = function(){
-  // var position = this._holder.position;
-  // var theta = this._holder.theta;
-  // console.log(position.x, position.y, theta);
-  // this.drawSky(theta, this.plane.skyImage);
-  // console.log(this.theta);
-  // for(var i = 0; i < this.resolution; i++){
-  //   var ray = this.rays[i];
-  //   console.log(ray.length);
-  // }
   return this._render;
 };
 
+// Camera cast all rays from holder
 Camera.prototype.castRays = function(holder){
   var texture = this.plane.image;
   var width = this.ppc;
@@ -97,6 +91,7 @@ Camera.prototype.castRays = function(holder){
   }
 };
 
+// Camera cast a single ray
 Camera.prototype.castRay = function(position, angle){
   var sin = Math.sin(angle);
   var cos = Math.cos(angle);
@@ -153,6 +148,8 @@ Camera.prototype.castRay = function(position, angle){
   return ray(point);
 };
 
+
+// Fisheye fix
 Camera.prototype.project = function(height, angle, distance) {
   var z = distance * Math.cos(angle);
   var wallHeight = this.canvas.height * height / z;

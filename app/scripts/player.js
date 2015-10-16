@@ -1,5 +1,6 @@
 /*global Entity*/
 
+// Constructor
 var Player = function(name){
   this._name = name;
   this._bindings = {};
@@ -8,6 +9,7 @@ var Player = function(name){
 
 Player.prototype = new Entity();
 
+// Properties
 Object.defineProperty(Player.prototype, 'name', {
   get: function(){
     return this._name;
@@ -20,10 +22,12 @@ Object.defineProperty(Player.prototype, 'bindings', {
   }
 });
 
+// Bind action with key to player
 Player.prototype.bindActionKey = function(key, cooldown, action){
   this._bindings[key] = { key: key, action: action, cooldown: cooldown, timer: 0};
 };
 
+// Action event handle
 Player.prototype.onActionKey = function(key, pressed, ms){
   var binding = this.bindings[key];
   if(pressed === false){
@@ -39,6 +43,7 @@ Player.prototype.onActionKey = function(key, pressed, ms){
   }
 };
 
+// Angle between player's direction and vector direction between player and object
 Player.prototype.alpha = function(position){
   var dy = position.y - this.position.y;
   var dx = position.x - this.position.x;
