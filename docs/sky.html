@@ -115,8 +115,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              <p>var kPI = Math.PI;
-var k2PI = 2 * kPI;</p>
+              <p>This is used to render a sky box. It is currently removed.</p>
 
             </div>
             
@@ -128,6 +127,20 @@ var k2PI = 2 * kPI;</p>
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>var kPI = Math.PI;
+var k2PI = 2 * kPI;</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
               <p>var Sky = function(canvas, image){
   this._canvas = canvas;
@@ -141,11 +154,11 @@ var k2PI = 2 * kPI;</p>
         </li>
         
         
-        <li id="section-3">
+        <li id="section-4">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-3">&#182;</a>
+                <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
               <p>Sky.prototype = {
   get ctx(){
@@ -170,11 +183,11 @@ var k2PI = 2 * kPI;</p>
         </li>
         
         
-        <li id="section-4">
+        <li id="section-5">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-4">&#182;</a>
+                <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
               <p>Sky.prototype.render = function(ms, theta, height){
   this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);

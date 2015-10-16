@@ -115,7 +115,8 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              
+              <p>Constructor</p>
+
             </div>
             
             <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> Entity = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">states</span>)</span>{
@@ -123,9 +124,22 @@
   <span class="hljs-keyword">this</span>._velocity = {x: <span class="hljs-number">0</span>, y: <span class="hljs-number">0</span>};
   <span class="hljs-keyword">this</span>._angular = {theta: <span class="hljs-number">0</span>, omega: <span class="hljs-number">0</span>};
   <span class="hljs-keyword">this</span>._states = states || {};
-};
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Properties</p>
 
-Entity.prototype = {
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>Entity.prototype = {
   get position() {
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._position;
   }
@@ -139,11 +153,11 @@ Entity.prototype = {
         </li>
         
         
-        <li id="section-2">
+        <li id="section-3">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-2">&#182;</a>
+                <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
               <p>return this._angular.theta;</p>
 
@@ -158,38 +172,129 @@ Entity.prototype = {
     <span class="hljs-keyword">var</span> y = <span class="hljs-built_in">Math</span>.sin(<span class="hljs-keyword">this</span>._angular.theta);
     <span class="hljs-keyword">return</span> {x: x, y: y};
   }
-};
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Position setter</p>
 
-Entity.prototype.setPosition = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">x, y</span>)</span>{
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>Entity.prototype.setPosition = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">x, y</span>)</span>{
   <span class="hljs-keyword">this</span>._position.x = x;
   <span class="hljs-keyword">this</span>._position.y = y;
-};
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Speed setter</p>
 
-Entity.prototype.setSpeed = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">speed</span>)</span>{
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>Entity.prototype.setSpeed = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">speed</span>)</span>{
   <span class="hljs-keyword">var</span> direction = <span class="hljs-keyword">this</span>.direction;
   <span class="hljs-keyword">this</span>._velocity.x = direction.x * speed;
   <span class="hljs-keyword">this</span>._velocity.y = direction.y * speed;
-};
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Direction setter</p>
 
-Entity.prototype.setTheta = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">theta</span>)</span>{
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>Entity.prototype.setTheta = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">theta</span>)</span>{
   <span class="hljs-keyword">this</span>._angular.theta = theta % ( <span class="hljs-number">2</span> * <span class="hljs-built_in">Math</span>.PI );
-};
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Angular speed setter</p>
 
-Entity.prototype.setOmega = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">omega</span>)</span>{
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>Entity.prototype.setOmega = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">omega</span>)</span>{
   <span class="hljs-keyword">this</span>._angular.omega = omega;
-};
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Move plus rotate</p>
 
-Entity.prototype.motion = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ms</span>)</span>{
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>Entity.prototype.motion = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ms</span>)</span>{
   <span class="hljs-keyword">this</span>.rotate(ms);
   <span class="hljs-keyword">this</span>.move(ms);
-};
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Move function</p>
 
-Entity.prototype.move = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ms</span>)</span>{
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>Entity.prototype.move = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ms</span>)</span>{
   <span class="hljs-keyword">this</span>._position.x = <span class="hljs-keyword">this</span>._position.x + <span class="hljs-keyword">this</span>._velocity.x * ms;
   <span class="hljs-keyword">this</span>._position.y = <span class="hljs-keyword">this</span>._position.y + <span class="hljs-keyword">this</span>._velocity.y * ms;
-};
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>Rotate function</p>
 
-Entity.prototype.rotate = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ms</span>)</span>{
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>Entity.prototype.rotate = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ms</span>)</span>{
   <span class="hljs-keyword">this</span>._angular.theta = <span class="hljs-keyword">this</span>._angular.theta + <span class="hljs-keyword">this</span>._angular.omega * ms;
 };</pre></div></div>
             
